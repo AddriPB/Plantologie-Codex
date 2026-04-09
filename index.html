@@ -172,40 +172,6 @@
       fill: currentColor;
     }
 
-    .space-chip {
-      margin-top: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.55);
-      border: 1px solid rgba(27, 67, 50, 0.08);
-      position: relative;
-      z-index: 1;
-      flex-wrap: wrap;
-    }
-
-    .space-chip strong {
-      font-size: 0.84rem;
-    }
-
-    .space-chip span {
-      color: rgba(27, 67, 50, 0.74);
-      font-weight: 700;
-      font-size: 0.8rem;
-    }
-
-    .space-switch-btn {
-      border: none;
-      border-radius: 10px;
-      padding: 7px 9px;
-      background: rgba(27, 67, 50, 0.08);
-      color: var(--forest);
-      font-weight: 800;
-      min-height: 34px;
-    }
-
     .hero-copy {
       position: relative;
       z-index: 1;
@@ -1383,12 +1349,6 @@
         <p class="subtitle">Votre compagnon de soin pour les plantes</p>
       </div>
 
-      <div class="space-chip">
-        <strong id="spaceLabel">Espace : non défini</strong>
-        <span id="spaceHint">Saisissez un nom d’espace pour accéder à vos plantes.</span>
-        <button class="space-switch-btn" id="changeSpaceBtn" type="button">Changer</button>
-      </div>
-
       <div class="hero-actions">
         <div class="summary-badge" id="summaryBadge">Aucune plante à arroser aujourd’hui</div>
         <div class="view-toggle" aria-label="Basculer la vue">
@@ -1507,7 +1467,7 @@
     <div class="dialog-panel">
       <h3 class="dialog-title">Choisir un espace</h3>
       <p class="space-help">
-        Entrez le nom de votre espace pour charger ses plantes. Avec vos règles Firebase actuelles, l’espace <strong>AZE</strong> fonctionne immédiatement.
+        Entrez le nom de votre espace pour charger ses plantes. Vous pouvez utiliser <strong>AZE</strong> pour explorer l’application, ou <strong>PRE</strong> si cet espace existe déjà dans votre Firebase.
       </p>
       <input class="space-input" id="spaceInput" type="text" maxlength="24" placeholder="Exemple : AZE" autocomplete="off">
       <div class="dialog-actions">
@@ -1618,9 +1578,6 @@
       var listToggleEl = document.getElementById("listToggle");
       var gridToggleEl = document.getElementById("gridToggle");
       var offlineBannerEl = document.getElementById("offlineBanner");
-      var spaceLabelEl = document.getElementById("spaceLabel");
-      var spaceHintEl = document.getElementById("spaceHint");
-      var changeSpaceBtnEl = document.getElementById("changeSpaceBtn");
       var plantFormEl = document.getElementById("plantForm");
       var photoInputEl = document.getElementById("photoInput");
       var photoFrameEl = document.getElementById("photoFrame");
@@ -1794,21 +1751,6 @@
           return Array.isArray(parsed) ? parsed : [];
         } catch (error) {
           return [];
-        }
-      }
-
-      function updateSpaceUi() {
-        if (!currentSpaceId) {
-          spaceLabelEl.textContent = "Espace : non défini";
-          spaceHintEl.textContent = "Saisissez un nom d’espace pour accéder à vos plantes.";
-          return;
-        }
-
-        spaceLabelEl.textContent = "Espace : " + currentSpaceId;
-        if (currentSpaceId === "AZE") {
-          spaceHintEl.textContent = "Connexion directe autorisée par vos règles Firebase actuelles.";
-        } else {
-          spaceHintEl.textContent = "Avec vos règles actuelles, seul AZE est accessible en ligne. Les autres espaces resteront en cache local tant que les règles ne changent pas.";
         }
       }
 
@@ -2046,7 +1988,6 @@
 
         currentSpaceId = normalized;
         localStorage.setItem(SPACE_KEY, currentSpaceId);
-        updateSpaceUi();
         closeSpaceDialog();
         selectedPlantIds = [];
         isSelectionMode = false;
@@ -2527,10 +2468,6 @@
           });
         });
 
-        changeSpaceBtnEl.addEventListener("click", function () {
-          openSpaceDialog(currentSpaceId);
-        });
-
         spaceUseAzeBtnEl.addEventListener("click", function () {
           applySpace("AZE");
         });
@@ -2646,7 +2583,6 @@
       }
 
       function init() {
-        updateSpaceUi();
         updatePreview();
         bindEvents();
         setViewMode(currentViewMode);
