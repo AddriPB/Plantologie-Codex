@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -16,14 +16,12 @@
       --coral: #FF8C69;
       --sun: #F6C453;
       --mint: #B7E4C7;
-      --mist: rgba(248, 244, 227, 0.68);
-      --glass: rgba(255, 255, 255, 0.24);
+      --sky: #79C7FF;
+      --blue: #4C8BF5;
+      --glass: rgba(255, 255, 255, 0.26);
       --line: rgba(27, 67, 50, 0.12);
       --shadow: 0 18px 45px rgba(27, 67, 50, 0.15);
       --shadow-soft: 0 10px 25px rgba(27, 67, 50, 0.08);
-      --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 16px;
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
@@ -45,7 +43,7 @@
       color: var(--forest);
       background:
         radial-gradient(circle at 20% 20%, rgba(183, 228, 199, 0.6), transparent 28%),
-        radial-gradient(circle at 80% 15%, rgba(255, 140, 105, 0.16), transparent 20%),
+        radial-gradient(circle at 80% 15%, rgba(255, 140, 105, 0.14), transparent 20%),
         radial-gradient(circle at 50% 80%, rgba(82, 121, 111, 0.18), transparent 24%),
         linear-gradient(180deg, #fefcf5 0%, #f8f4e3 52%, #edf5ec 100%);
       overflow-x: hidden;
@@ -84,6 +82,10 @@
       font: inherit;
     }
 
+    button {
+      cursor: pointer;
+    }
+
     .app-shell {
       position: relative;
       z-index: 1;
@@ -91,7 +93,7 @@
       margin: 0 auto;
       min-height: 100vh;
       min-height: 100dvh;
-      padding: calc(18px + var(--safe-top)) 16px calc(120px + var(--safe-bottom));
+      padding: calc(18px + var(--safe-top)) 16px calc(138px + var(--safe-bottom));
     }
 
     .top-bounce {
@@ -112,7 +114,7 @@
     }
 
     .hero {
-      padding: 22px 20px;
+      padding: 20px 18px 18px;
       border-radius: 30px;
       background: linear-gradient(145deg, rgba(255, 255, 255, 0.5), rgba(248, 244, 227, 0.24));
       border: 1px solid rgba(255, 255, 255, 0.45);
@@ -128,7 +130,7 @@
       content: "";
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(183, 228, 199, 0.5), transparent 70%);
+      background: radial-gradient(circle, rgba(183, 228, 199, 0.48), transparent 70%);
       pointer-events: none;
     }
 
@@ -146,6 +148,17 @@
       bottom: -55px;
     }
 
+    .eyebrow-row,
+    .hero-header-row,
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -154,40 +167,74 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.45);
       border: 1px solid rgba(27, 67, 50, 0.08);
-      font-size: 0.88rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .live-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(27, 67, 50, 0.08);
+      font-size: 0.8rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #25b35b;
+      box-shadow: 0 0 0 6px rgba(37, 179, 91, 0.15);
+    }
+
+    .live-status.offline .live-dot {
+      background: #e14b36;
+      box-shadow: 0 0 0 6px rgba(225, 75, 54, 0.15);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      margin-top: 14px;
     }
 
     h1 {
-      margin: 16px 0 4px;
+      margin: 0 0 4px;
       font-family: "Playfair Display", serif;
-      font-size: clamp(2.2rem, 8vw, 3rem);
+      font-size: clamp(2.1rem, 8vw, 3rem);
       line-height: 1;
       letter-spacing: -0.03em;
     }
 
     .subtitle {
       margin: 0;
-      color: rgba(27, 67, 50, 0.8);
+      color: rgba(27, 67, 50, 0.82);
       font-size: 1rem;
-    }
-
-    .hero-meta {
-      margin-top: 18px;
-      display: grid;
-      gap: 12px;
     }
 
     .today-date {
+      margin-top: 16px;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.98rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-actions {
+      margin-top: 14px;
+      align-items: flex-start;
     }
 
     .summary-badge {
       display: inline-flex;
       align-items: center;
       width: fit-content;
-      max-width: 100%;
+      max-width: calc(100% - 110px);
       gap: 10px;
       padding: 12px 14px;
       border-radius: 18px;
@@ -195,6 +242,53 @@
       color: #fffdf7;
       box-shadow: var(--shadow-soft);
       font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .view-toggle {
+      display: inline-grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 6px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.52);
+      border: 1px solid rgba(27, 67, 50, 0.08);
+    }
+
+    .toggle-btn {
+      min-width: 42px;
+      min-height: 42px;
+      border: none;
+      border-radius: 14px;
+      background: transparent;
+      color: rgba(27, 67, 50, 0.68);
+      font-size: 1.15rem;
+      font-weight: 800;
+      transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    }
+
+    .toggle-btn.active {
+      background: linear-gradient(135deg, rgba(27, 67, 50, 0.96), rgba(82, 121, 111, 0.96));
+      color: #fffdf7;
+      transform: translateY(-1px);
+    }
+
+    .offline-banner {
+      display: none;
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 16px;
+      background: rgba(255, 140, 105, 0.14);
+      border: 1px solid rgba(255, 140, 105, 0.28);
+      color: #8c402e;
+      font-size: 0.9rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .offline-banner.show {
+      display: block;
     }
 
     .view {
@@ -209,7 +303,7 @@
 
     .section-head {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
       margin: 20px 4px 14px;
@@ -217,19 +311,73 @@
 
     .section-head h2 {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.12rem;
       letter-spacing: -0.02em;
     }
 
     .hint {
-      margin: 0;
+      margin: 4px 0 0;
       font-size: 0.86rem;
-      color: rgba(27, 67, 50, 0.7);
+      color: rgba(27, 67, 50, 0.72);
+    }
+
+    .section-actions {
+      display: inline-flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .ghost-btn {
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid rgba(27, 67, 50, 0.1);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.54);
+      color: var(--forest);
+      font-weight: 800;
+    }
+
+    .ghost-btn.active {
+      background: rgba(76, 139, 245, 0.14);
+      border-color: rgba(76, 139, 245, 0.36);
+      color: var(--blue);
+    }
+
+    .water-all-btn {
+      width: 100%;
+      min-height: 54px;
+      border: none;
+      border-radius: 20px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #52796F, #1B4332);
+      color: #fffdf7;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 14px 24px rgba(27, 67, 50, 0.22);
+      margin-bottom: 14px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .plants-stage {
+      position: relative;
+      min-height: 240px;
     }
 
     .plant-list {
       display: grid;
       gap: 14px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .grid-view {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .empty-state {
@@ -310,22 +458,9 @@
       animation: pulseFloat 2s ease-in-out infinite;
     }
 
-    .spark.one {
-      top: 22px;
-      left: 28px;
-    }
-
-    .spark.two {
-      top: 32px;
-      right: 24px;
-      animation-delay: 0.4s;
-    }
-
-    .spark.three {
-      bottom: 12px;
-      right: 48px;
-      animation-delay: 0.8s;
-    }
+    .spark.one { top: 22px; left: 28px; }
+    .spark.two { top: 32px; right: 24px; animation-delay: 0.4s; }
+    .spark.three { bottom: 12px; right: 48px; animation-delay: 0.8s; }
 
     .card-shell {
       position: relative;
@@ -338,8 +473,6 @@
       inset: 0;
       display: flex;
       justify-content: flex-end;
-      align-items: stretch;
-      padding: 0;
       background: linear-gradient(90deg, rgba(255, 140, 105, 0.08), rgba(255, 140, 105, 0.24));
     }
 
@@ -351,7 +484,6 @@
       font-weight: 800;
       font-size: 0.96rem;
       min-height: 100%;
-      cursor: pointer;
     }
 
     .plant-card {
@@ -367,6 +499,7 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       touch-action: pan-y;
       overflow: hidden;
+      min-height: 180px;
     }
 
     .plant-card::after {
@@ -395,27 +528,65 @@
       box-shadow: 0 0 0 1px rgba(183, 228, 199, 0.36), 0 16px 40px rgba(82, 121, 111, 0.12);
     }
 
+    .selection-mode .plant-card,
+    .selection-mode .grid-card {
+      cursor: pointer;
+    }
+
+    .selected-card {
+      border-color: rgba(76, 139, 245, 0.42) !important;
+      box-shadow: 0 0 0 2px rgba(76, 139, 245, 0.16), 0 16px 42px rgba(76, 139, 245, 0.12) !important;
+    }
+
     .card-top {
       display: flex;
       align-items: flex-start;
       gap: 14px;
     }
 
+    .selector {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 2px solid rgba(27, 67, 50, 0.18);
+      background: rgba(255, 255, 255, 0.72);
+      color: transparent;
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .selection-mode .selector {
+      display: inline-flex;
+    }
+
+    .selector.checked {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: white;
+    }
+
     .avatar {
-      width: 62px;
-      height: 62px;
-      flex: 0 0 62px;
+      width: 68px;
+      height: 68px;
+      flex: 0 0 68px;
       border-radius: 20px;
       display: grid;
       place-items: center;
-      font-size: 2rem;
       background: rgba(255, 255, 255, 0.42);
       border: 1px solid rgba(27, 67, 50, 0.08);
       overflow: hidden;
       box-shadow: inset 0 -6px 14px rgba(82, 121, 111, 0.08);
     }
 
-    .avatar img {
+    .avatar img,
+    .grid-photo,
+    .sheet-photo img,
+    .preview-badge img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -455,20 +626,9 @@
       border: 1px solid rgba(27, 67, 50, 0.08);
     }
 
-    .status-badge.overdue {
-      color: #b93828;
-      background: rgba(255, 140, 105, 0.17);
-    }
-
-    .status-badge.soon {
-      color: #876106;
-      background: rgba(246, 196, 83, 0.22);
-    }
-
-    .status-badge.good {
-      color: #1f6b43;
-      background: rgba(183, 228, 199, 0.4);
-    }
+    .status-badge.overdue { color: #b93828; background: rgba(255, 140, 105, 0.17); }
+    .status-badge.soon { color: #876106; background: rgba(246, 196, 83, 0.22); }
+    .status-badge.good { color: #1f6b43; background: rgba(183, 228, 199, 0.4); }
 
     .meta-grid {
       margin-top: 12px;
@@ -509,7 +669,8 @@
       color: rgba(27, 67, 50, 0.82);
     }
 
-    .water-btn {
+    .water-btn,
+    .cta-btn {
       position: relative;
       margin-top: 14px;
       width: 100%;
@@ -522,19 +683,16 @@
       font-weight: 800;
       font-size: 1rem;
       box-shadow: 0 14px 24px rgba(27, 67, 50, 0.22);
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
       overflow: hidden;
     }
 
-    .water-btn:active,
-    .water-btn:focus-visible {
-      transform: scale(0.98);
-      box-shadow: 0 8px 18px rgba(27, 67, 50, 0.18);
-      outline: none;
+    .cta-btn.coral {
+      background: linear-gradient(135deg, #ff8c69, #e9724a);
+      box-shadow: 0 14px 24px rgba(255, 140, 105, 0.25);
     }
 
-    .water-btn::after {
+    .water-btn::after,
+    .cta-btn::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -544,7 +702,9 @@
     }
 
     .water-btn:hover::after,
-    .water-btn:focus-visible::after {
+    .water-btn:focus-visible::after,
+    .cta-btn:hover::after,
+    .cta-btn:focus-visible::after {
       transform: translateX(120%);
     }
 
@@ -596,6 +756,103 @@
       animation: bloom 0.6s ease forwards;
     }
 
+    .grid-card {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.46);
+      box-shadow: var(--shadow);
+      background: #dfe7df;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .grid-photo-wrap {
+      position: absolute;
+      inset: 0;
+    }
+
+    .grid-photo {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: saturate(1.02);
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 36px 12px 12px;
+      background: linear-gradient(180deg, transparent, rgba(10, 26, 20, 0.78));
+      color: #fffdf7;
+    }
+
+    .grid-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .grid-sub {
+      margin-top: 4px;
+      font-size: 0.82rem;
+      color: rgba(255, 253, 247, 0.88);
+      font-weight: 700;
+    }
+
+    .grid-pill,
+    .grid-selector {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+      border-radius: 999px;
+      min-width: 38px;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 9px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .grid-pill.overdue { background: rgba(255, 140, 105, 0.82); color: white; }
+    .grid-pill.soon { background: rgba(246, 196, 83, 0.86); color: #553d00; }
+    .grid-pill.good { background: rgba(183, 228, 199, 0.86); color: #15452d; }
+
+    .grid-selector {
+      display: none;
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      background: rgba(11, 24, 19, 0.28);
+      color: transparent;
+      width: 32px;
+      min-width: 32px;
+      padding: 0;
+    }
+
+    .selection-mode .grid-selector {
+      display: inline-flex;
+    }
+
+    .grid-selector.checked {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .grid-selected::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 3px solid rgba(76, 139, 245, 0.88);
+      border-radius: 24px;
+      pointer-events: none;
+    }
+
     .form-card {
       padding: 20px;
       border-radius: 28px;
@@ -639,43 +896,60 @@
       border-color: rgba(82, 121, 111, 0.45);
     }
 
-    .emoji-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .emoji-option {
-      min-height: 56px;
-      border-radius: 18px;
-      border: 1px solid rgba(27, 67, 50, 0.1);
-      background: rgba(255, 255, 255, 0.68);
-      font-size: 1.55rem;
-      cursor: pointer;
-      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .emoji-option.selected {
-      transform: translateY(-2px);
-      border-color: rgba(27, 67, 50, 0.34);
-      box-shadow: 0 10px 20px rgba(82, 121, 111, 0.16);
-      background: linear-gradient(180deg, rgba(183, 228, 199, 0.75), rgba(255, 255, 255, 0.9));
-    }
-
-    .upload-box {
-      border: 1px dashed rgba(27, 67, 50, 0.2);
-      background: rgba(255, 255, 255, 0.54);
-      padding: 14px;
-      border-radius: 18px;
-    }
-
-    .upload-box input[type="file"] {
+    .photo-zone {
+      position: relative;
+      display: block;
       width: 100%;
-      margin-top: 8px;
+      aspect-ratio: 4 / 5;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(27, 67, 50, 0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(248,244,227,0.92));
+      box-shadow: var(--shadow-soft);
+    }
+
+    .photo-zone input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    .photo-zone-frame {
+      position: absolute;
+      inset: 14px;
+      border-radius: 16px;
+      background: #fbfaf5;
+      box-shadow: 0 14px 24px rgba(27, 67, 50, 0.08);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 22px;
+    }
+
+    .photo-placeholder {
+      display: grid;
+      gap: 10px;
+      color: rgba(27, 67, 50, 0.76);
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .photo-placeholder .camera {
+      font-size: 2rem;
+    }
+
+    .photo-placeholder small {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: rgba(27, 67, 50, 0.62);
     }
 
     .preview {
-      margin-top: 10px;
+      margin-top: 12px;
       min-height: 64px;
       display: flex;
       align-items: center;
@@ -685,21 +959,17 @@
     }
 
     .preview-badge {
-      width: 56px;
-      height: 56px;
+      width: 72px;
+      height: 72px;
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.76);
       display: grid;
       place-items: center;
       overflow: hidden;
-      font-size: 1.8rem;
       border: 1px solid rgba(27, 67, 50, 0.08);
-    }
-
-    .preview-badge img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .save-btn {
@@ -712,14 +982,6 @@
       font-size: 1rem;
       font-weight: 800;
       box-shadow: 0 16px 28px rgba(27, 67, 50, 0.2);
-      cursor: pointer;
-      transition: transform 0.18s ease;
-    }
-
-    .save-btn:active,
-    .save-btn:focus-visible {
-      transform: scale(0.985);
-      outline: none;
     }
 
     .toast {
@@ -736,7 +998,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease, transform 0.25s ease;
-      z-index: 40;
+      z-index: 50;
       font-weight: 700;
       text-align: center;
     }
@@ -781,7 +1043,6 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      cursor: pointer;
       transition: background 0.18s ease, transform 0.18s ease, color 0.18s ease;
     }
 
@@ -796,34 +1057,160 @@
       font-size: 1.15rem;
     }
 
-    dialog {
-      width: min(calc(100% - 32px), 360px);
-      border: none;
-      border-radius: 24px;
-      padding: 0;
-      background: transparent;
+    .selection-bar {
+      position: fixed;
+      left: 50%;
+      bottom: calc(92px + var(--safe-bottom));
+      transform: translateX(-50%);
+      width: min(calc(100% - 20px), 420px);
+      z-index: 45;
+      display: none;
+      padding: 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
-    dialog::backdrop {
-      background: rgba(27, 67, 50, 0.35);
+    .selection-bar.show {
+      display: block;
+      animation: fadeSlide 0.25s ease;
+    }
+
+    .selection-row {
+      display: grid;
+      gap: 10px;
+    }
+
+    .selection-meta {
+      font-weight: 800;
+    }
+
+    .selection-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .text-btn {
+      border: none;
+      background: transparent;
+      color: rgba(27, 67, 50, 0.72);
+      font-weight: 800;
+      min-height: 50px;
+    }
+
+    .sheet,
+    .dialog {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 60;
+    }
+
+    .sheet.show,
+    .dialog.show {
+      display: block;
+    }
+
+    .sheet-backdrop,
+    .dialog-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(27, 67, 50, 0.34);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
 
-    .dialog-card {
-      padding: 22px;
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(248,244,227,0.95));
+    .sheet-panel,
+    .dialog-panel {
+      position: absolute;
+      left: 50%;
+      width: min(calc(100% - 20px), 430px);
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,244,227,0.96));
       box-shadow: var(--shadow);
-      color: var(--forest);
+      border-radius: 28px 28px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      overflow: hidden;
     }
 
-    .dialog-card h3 {
+    .sheet-panel {
+      bottom: 0;
+      padding: 14px 16px calc(20px + var(--safe-bottom));
+      animation: riseUp 0.24s ease;
+    }
+
+    .dialog-panel {
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 28px;
+      padding: 22px;
+      animation: fadeSlide 0.24s ease;
+    }
+
+    .sheet-grabber {
+      width: 64px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(27, 67, 50, 0.12);
+      margin: 4px auto 14px;
+    }
+
+    .sheet-photo {
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      border-radius: 20px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-bottom: 14px;
+    }
+
+    .sheet-title {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.05;
+      font-family: "Playfair Display", serif;
+    }
+
+    .sheet-sub {
+      margin: 8px 0 0;
+      color: rgba(27, 67, 50, 0.72);
+      font-weight: 700;
+    }
+
+    .sheet-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .sheet-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .sheet-secondary {
+      min-height: 48px;
+      border: none;
+      border-radius: 16px;
+      background: rgba(27, 67, 50, 0.08);
+      color: var(--forest);
+      font-weight: 800;
+    }
+
+    .dialog-title {
       margin: 0 0 8px;
       font-size: 1.2rem;
     }
 
-    .dialog-card p {
+    .dialog-copy {
       margin: 0 0 18px;
       color: rgba(27, 67, 50, 0.74);
     }
@@ -834,22 +1221,46 @@
       gap: 10px;
     }
 
-    .dialog-actions button {
-      min-height: 50px;
+    .cancel-btn {
       border: none;
       border-radius: 16px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .cancel-btn {
       background: rgba(27, 67, 50, 0.08);
       color: var(--forest);
+      font-weight: 800;
+      min-height: 50px;
     }
 
     .confirm-delete-btn {
+      border: none;
+      border-radius: 16px;
       background: linear-gradient(180deg, #ff9c7d, #f05d4c);
       color: white;
+      font-weight: 800;
+      min-height: 50px;
+    }
+
+    .rain-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 55;
+      overflow: hidden;
+      display: none;
+    }
+
+    .rain-layer.show {
+      display: block;
+    }
+
+    .rain-drop {
+      position: absolute;
+      top: -40px;
+      width: 12px;
+      height: 20px;
+      border-radius: 50% 50% 60% 60%;
+      background: linear-gradient(180deg, #9fe1ff, #4dbaf8);
+      animation: rainFall 1.3s linear forwards;
+      opacity: 0.8;
     }
 
     .sr-only {
@@ -869,6 +1280,11 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes riseUp {
+      from { opacity: 0; transform: translate(-50%, 20px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
     @keyframes pulseFloat {
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-8px) scale(1.06); }
@@ -880,39 +1296,25 @@
     }
 
     @keyframes drip {
-      0% {
-        opacity: 0;
-        transform: translateY(0) scale(0.5) rotate(18deg);
-      }
-      20% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(70px) scale(1.15) rotate(18deg);
-      }
+      0% { opacity: 0; transform: translateY(0) scale(0.5) rotate(18deg); }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(70px) scale(1.15) rotate(18deg); }
     }
 
     @keyframes bloom {
-      0% {
-        opacity: 0;
-        transform: scale(0.6);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.08);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1);
-      }
+      0% { opacity: 0; transform: scale(0.6); }
+      50% { opacity: 1; transform: scale(1.08); }
+      100% { opacity: 0; transform: scale(1); }
+    }
+
+    @keyframes rainFall {
+      0% { transform: translateY(0) rotate(12deg); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(115vh) rotate(18deg); opacity: 0; }
     }
 
     @media (min-width: 431px) {
-      .app-shell {
-        padding-left: 18px;
-        padding-right: 18px;
-      }
+      .app-shell { padding-left: 18px; padding-right: 18px; }
     }
   </style>
 </head>
@@ -921,138 +1323,271 @@
     <div class="top-bounce" aria-hidden="true"></div>
 
     <section class="hero">
-      <div class="eyebrow">🌿 Mobile-first care ritual</div>
-      <h1>Plantologie</h1>
-      <p class="subtitle">Your plant care companion</p>
-      <div class="hero-meta">
-        <div class="today-date" id="todayDate"></div>
-        <div class="summary-badge" id="summaryBadge">0 plants need water today</div>
+      <div class="eyebrow-row">
+        <div class="eyebrow">🌿 Rituel botanique connecté</div>
+        <div class="live-status offline" id="liveStatus">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span id="liveStatusText">Hors ligne</span>
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <h1>Plantologie</h1>
+        <p class="subtitle">Votre compagnon de soin pour les plantes</p>
+      </div>
+
+      <div class="today-date" id="todayDate"></div>
+
+      <div class="hero-actions">
+        <div class="summary-badge" id="summaryBadge">Aucune plante à arroser aujourd’hui</div>
+        <div class="view-toggle" aria-label="Basculer la vue">
+          <button class="toggle-btn active" id="listToggle" type="button" aria-label="Vue liste">☰</button>
+          <button class="toggle-btn" id="gridToggle" type="button" aria-label="Vue grille">⊞</button>
+        </div>
+      </div>
+
+      <div class="offline-banner" id="offlineBanner">
+        Connexion Firebase indisponible. L’application affiche les dernières données connues.
       </div>
     </section>
 
     <section class="view active" id="plantsView">
       <div class="section-head">
         <div>
-          <h2>My plants</h2>
-          <p class="hint">Long press or swipe left to delete a plant.</p>
+          <h2>Mes plantes</h2>
+          <p class="hint" id="sectionHint">Balayez vers la gauche pour supprimer, ou faites un appui long pour sélectionner.</p>
+        </div>
+        <div class="section-actions">
+          <button class="ghost-btn" id="selectModeBtn" type="button">Sélectionner</button>
         </div>
       </div>
-      <div class="plant-list" id="plantList"></div>
+
+      <button class="water-all-btn hidden" id="waterAllBtn" type="button">Tout arroser 💧</button>
+
+      <div class="plants-stage" id="plantsStage">
+        <div class="plant-list" id="plantList"></div>
+        <div class="grid-view hidden" id="gridView"></div>
+      </div>
     </section>
 
     <section class="view" id="addView">
       <div class="section-head">
         <div>
-          <h2>Add a plant</h2>
-          <p class="hint">Create a gentle watering rhythm for each plant.</p>
+          <h2>Ajouter une plante</h2>
+          <p class="hint">Prenez une photo et définissez son rythme d’arrosage.</p>
         </div>
       </div>
 
       <form class="form-card" id="plantForm">
-        <p class="form-copy">Pick an emoji, or upload a photo if you want a more personal plant portrait.</p>
+        <p class="form-copy">Chaque nouvelle plante est synchronisée en temps réel avec Firebase quand la connexion est disponible.</p>
 
         <div class="field">
-          <label for="plantName">Plant name</label>
-          <input id="plantName" name="plantName" type="text" maxlength="40" placeholder="Monstera, cactus, basil..." required>
+          <label for="plantName">Nom de la plante</label>
+          <input id="plantName" name="plantName" type="text" maxlength="40" placeholder="Monstera, cactus, basilic..." required>
         </div>
 
         <div class="field">
-          <label for="frequency">Water every X days</label>
+          <label for="frequency">Arroser tous les X jours</label>
           <input id="frequency" name="frequency" type="number" min="1" max="365" inputmode="numeric" placeholder="7" required>
         </div>
 
         <div class="field">
-          <label>Choose an emoji avatar</label>
-          <div class="emoji-grid" id="emojiGrid" role="radiogroup" aria-label="Plant emoji options"></div>
-        </div>
-
-        <div class="field">
-          <label for="photoInput">Or upload a plant photo</label>
-          <div class="upload-box">
-            <span>This photo stays only in your browser storage.</span>
-            <input id="photoInput" name="photoInput" type="file" accept="image/*">
-            <div class="preview" id="photoPreview">
-              <div class="preview-badge" id="previewBadge">🪴</div>
-              <span id="previewText">Current avatar preview</span>
+          <label for="photoInput">Photo de la plante</label>
+          <label class="photo-zone" for="photoInput">
+            <input id="photoInput" name="photoInput" type="file" accept="image/*" capture="environment">
+            <div class="photo-zone-frame" id="photoFrame">
+              <div class="photo-placeholder" id="photoPlaceholder">
+                <span class="camera">📷</span>
+                <span>Prends une photo de ta plante</span>
+                <small>Sur mobile, l’appareil photo peut s’ouvrir directement. Tu peux aussi choisir une image de la galerie.</small>
+              </div>
             </div>
+          </label>
+
+          <div class="preview" id="photoPreview">
+            <div class="preview-badge" id="previewBadge"></div>
+            <span id="previewText">Aperçu de la photo ou de l’illustration botanique par défaut</span>
           </div>
         </div>
 
-        <button class="save-btn" type="submit">Save plant</button>
+        <button class="save-btn" type="submit">Enregistrer la plante</button>
       </form>
     </section>
   </main>
 
-  <nav class="bottom-nav" aria-label="Bottom navigation">
+  <nav class="bottom-nav" aria-label="Navigation du bas">
     <div class="nav-shell">
       <button class="nav-btn active" data-view="plantsView" type="button">
         <span class="nav-emoji">🌿</span>
-        <span>My Plants</span>
+        <span>Mes plantes</span>
       </button>
       <button class="nav-btn" data-view="addView" type="button">
         <span class="nav-emoji">➕</span>
-        <span>Add Plant</span>
+        <span>Ajouter</span>
       </button>
     </div>
   </nav>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <dialog id="confirmDialog">
-    <div class="dialog-card">
-      <h3>Delete this plant?</h3>
-      <p>This will remove it from your tracker. You can always add it again later.</p>
-      <div class="dialog-actions">
-        <button class="cancel-btn" id="cancelDelete" type="button">Cancel</button>
-        <button class="confirm-delete-btn" id="confirmDelete" type="button">Delete</button>
+  <div class="selection-bar" id="selectionBar">
+    <div class="selection-row">
+      <div class="selection-meta" id="selectionCount">0 plante sélectionnée</div>
+      <div class="selection-actions">
+        <button class="cta-btn coral" id="waterSelectedBtn" type="button">💧 Arroser la sélection</button>
+        <button class="text-btn" id="cancelSelectionBtn" type="button">Annuler</button>
       </div>
     </div>
-  </dialog>
+  </div>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="dialog" id="confirmDialog">
+    <div class="dialog-backdrop" data-close-dialog></div>
+    <div class="dialog-panel">
+      <h3 class="dialog-title" id="dialogTitle">Supprimer cette plante ?</h3>
+      <p class="dialog-copy" id="dialogCopy">Cette action retire la plante de votre collection synchronisée.</p>
+      <div class="dialog-actions">
+        <button class="cancel-btn" id="cancelDialogBtn" type="button">Annuler</button>
+        <button class="confirm-delete-btn" id="confirmDialogBtn" type="button">Confirmer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet" id="detailsSheet">
+    <div class="sheet-backdrop" data-close-sheet></div>
+    <div class="sheet-panel">
+      <div class="sheet-grabber"></div>
+      <div class="sheet-photo" id="sheetPhoto"></div>
+      <h3 class="sheet-title" id="sheetTitle"></h3>
+      <p class="sheet-sub" id="sheetStatus"></p>
+      <div class="sheet-meta">
+        <div class="meta-chip">
+          <span class="meta-label">Fréquence</span>
+          <span class="meta-value" id="sheetFrequency"></span>
+        </div>
+        <div class="meta-chip">
+          <span class="meta-label">Dernier arrosage</span>
+          <span class="meta-value" id="sheetLastWatered"></span>
+        </div>
+      </div>
+      <div class="sheet-actions">
+        <button class="water-btn" id="sheetWaterBtn" type="button">Je l’ai arrosée ! 💧</button>
+        <button class="sheet-secondary" id="sheetCloseBtn" type="button">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rain-layer" id="rainLayer" aria-hidden="true"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script>
     (function () {
       "use strict";
 
-      var STORAGE_KEY = "plantologie-plants";
-      var EMOJIS = ["🌵", "🌿", "🌸", "🌺", "🌻", "🪴", "🎋", "🍀", "🌱", "🌾", "🎍", "🪷", "🌹", "🌼"];
+      var CACHE_KEY = "plantologie-cache";
+      var VIEW_KEY = "plantologie-view";
+
+      /*
+        CONFIGURATION FIREBASE
+        Remplacez chaque valeur par votre propre configuration Firebase.
+      */
+      var firebaseConfig = {
+        apiKey: "AIzaSyBztsmH0NDgHBpmcQcggRY8gP59wUsdzEQ",
+        authDomain: "plantologie-cba8a.firebaseapp.com",
+        databaseURL: "https://plantologie-cba8a-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "plantologie-cba8a",
+        storageBucket: "plantologie-cba8a.firebasestorage.app",
+        messagingSenderId: "275761537645",
+        appId: "1:275761537645:web:cf7d84f772ba4734d11564",
+        measurementId: "G-BNSFE4WPET"
+      };
+
       var plants = [];
-      var selectedEmoji = "🪴";
+      var isFirebaseReady = false;
+      var isLiveConnected = false;
+      var currentViewMode = localStorage.getItem(VIEW_KEY) || "list";
       var pendingDeleteId = null;
+      var pendingAction = null;
+      var selectedPlantIds = [];
+      var isSelectionMode = false;
+      var sheetPlantId = null;
       var photoDataUrl = "";
+
+      var defaultPlantSvg = [
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'>",
+        "<defs>",
+        "<linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'>",
+        "<stop offset='0%' stop-color='#F8F4E3'/>",
+        "<stop offset='100%' stop-color='#DDEEDD'/>",
+        "</linearGradient>",
+        "<linearGradient id='leaf1' x1='0' y1='0' x2='1' y2='1'>",
+        "<stop offset='0%' stop-color='#95d5b2'/>",
+        "<stop offset='100%' stop-color='#2d6a4f'/>",
+        "</linearGradient>",
+        "<linearGradient id='pot' x1='0' y1='0' x2='0' y2='1'>",
+        "<stop offset='0%' stop-color='#ddb48a'/>",
+        "<stop offset='100%' stop-color='#bb7d45'/>",
+        "</linearGradient>",
+        "</defs>",
+        "<rect width='400' height='400' rx='38' fill='url(#bg)'/>",
+        "<circle cx='320' cy='70' r='44' fill='#B7E4C7' opacity='0.5'/>",
+        "<circle cx='86' cy='105' r='28' fill='#FFDACD' opacity='0.45'/>",
+        "<rect x='145' y='130' width='14' height='118' rx='7' fill='#1B4332'/>",
+        "<ellipse cx='136' cy='142' rx='56' ry='28' transform='rotate(-28 136 142)' fill='url(#leaf1)'/>",
+        "<ellipse cx='223' cy='118' rx='58' ry='30' transform='rotate(26 223 118)' fill='url(#leaf1)'/>",
+        "<ellipse cx='115' cy='192' rx='46' ry='22' transform='rotate(-18 115 192)' fill='url(#leaf1)' opacity='0.92'/>",
+        "<ellipse cx='240' cy='180' rx='52' ry='24' transform='rotate(20 240 180)' fill='url(#leaf1)' opacity='0.92'/>",
+        "<path d='M110 245h90l18 92H92z' fill='url(#pot)'/>",
+        "<rect x='92' y='235' width='126' height='22' rx='11' fill='#d4a67a'/>",
+        "<text x='200' y='350' text-anchor='middle' font-family='Nunito, sans-serif' font-size='22' font-weight='800' fill='#1B4332'>Plantologie</text>",
+        "</svg>"
+      ].join("");
+      var defaultPlantPhoto = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(defaultPlantSvg)));
 
       var todayDateEl = document.getElementById("todayDate");
       var summaryBadgeEl = document.getElementById("summaryBadge");
       var plantListEl = document.getElementById("plantList");
-      var emojiGridEl = document.getElementById("emojiGrid");
+      var gridViewEl = document.getElementById("gridView");
+      var plantsStageEl = document.getElementById("plantsStage");
+      var listToggleEl = document.getElementById("listToggle");
+      var gridToggleEl = document.getElementById("gridToggle");
+      var liveStatusEl = document.getElementById("liveStatus");
+      var liveStatusTextEl = document.getElementById("liveStatusText");
+      var offlineBannerEl = document.getElementById("offlineBanner");
       var plantFormEl = document.getElementById("plantForm");
       var photoInputEl = document.getElementById("photoInput");
+      var photoFrameEl = document.getElementById("photoFrame");
+      var photoPlaceholderEl = document.getElementById("photoPlaceholder");
       var previewBadgeEl = document.getElementById("previewBadge");
       var previewTextEl = document.getElementById("previewText");
       var toastEl = document.getElementById("toast");
+      var selectModeBtnEl = document.getElementById("selectModeBtn");
+      var selectionBarEl = document.getElementById("selectionBar");
+      var selectionCountEl = document.getElementById("selectionCount");
+      var cancelSelectionBtnEl = document.getElementById("cancelSelectionBtn");
+      var waterSelectedBtnEl = document.getElementById("waterSelectedBtn");
+      var waterAllBtnEl = document.getElementById("waterAllBtn");
       var confirmDialogEl = document.getElementById("confirmDialog");
-      var cancelDeleteEl = document.getElementById("cancelDelete");
-      var confirmDeleteEl = document.getElementById("confirmDelete");
+      var dialogTitleEl = document.getElementById("dialogTitle");
+      var dialogCopyEl = document.getElementById("dialogCopy");
+      var cancelDialogBtnEl = document.getElementById("cancelDialogBtn");
+      var confirmDialogBtnEl = document.getElementById("confirmDialogBtn");
+      var detailsSheetEl = document.getElementById("detailsSheet");
+      var sheetPhotoEl = document.getElementById("sheetPhoto");
+      var sheetTitleEl = document.getElementById("sheetTitle");
+      var sheetStatusEl = document.getElementById("sheetStatus");
+      var sheetFrequencyEl = document.getElementById("sheetFrequency");
+      var sheetLastWateredEl = document.getElementById("sheetLastWatered");
+      var sheetWaterBtnEl = document.getElementById("sheetWaterBtn");
+      var sheetCloseBtnEl = document.getElementById("sheetCloseBtn");
+      var rainLayerEl = document.getElementById("rainLayer");
+
+      var db = null;
+      var plantsRef = null;
 
       function startOfToday() {
         var now = new Date();
         return new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      }
-
-      function formatDate(date) {
-        return new Intl.DateTimeFormat("en-US", {
-          weekday: "long",
-          month: "long",
-          day: "numeric"
-        }).format(date);
-      }
-
-      function formatShortDate(dateString) {
-        var date = new Date(dateString + "T00:00:00");
-        return new Intl.DateTimeFormat("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric"
-        }).format(date);
       }
 
       function toDateInputString(date) {
@@ -1061,6 +1596,26 @@
           String(date.getMonth() + 1).padStart(2, "0"),
           String(date.getDate()).padStart(2, "0")
         ].join("-");
+      }
+
+      function formatDate(date) {
+        return new Intl.DateTimeFormat("fr-FR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long"
+        }).format(date);
+      }
+
+      function formatShortDate(dateString) {
+        if (!dateString) {
+          return "Jamais";
+        }
+        var date = new Date(dateString + "T00:00:00");
+        return new Intl.DateTimeFormat("fr-FR", {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        }).format(date);
       }
 
       function addDays(dateString, days) {
@@ -1076,21 +1631,34 @@
         return Math.round((utc2 - utc1) / msPerDay);
       }
 
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function getPlantPhoto(plant) {
+        return plant.photo || defaultPlantPhoto;
+      }
+
       function getStatus(plant) {
         var today = startOfToday();
         var nextWaterDate = addDays(plant.lastWatered, Number(plant.frequency));
         var daysUntil = diffInDays(today, nextWaterDate);
         var status = "good";
-        var label = "Good";
+        var label = "Bien";
         var emoji = "🟢";
 
         if (daysUntil < 0) {
           status = "overdue";
-          label = "Overdue";
+          label = "En retard";
           emoji = "🔴";
         } else if (daysUntil <= 2) {
           status = "soon";
-          label = "Soon";
+          label = "Bientôt";
           emoji = "🟡";
         }
 
@@ -1103,48 +1671,26 @@
         };
       }
 
-      function countdownLabel(daysUntil) {
-        if (daysUntil === 0) {
-          return "Watering is due today!";
-        }
-        if (daysUntil === 1) {
-          return "Needs water in 1 day";
-        }
-        if (daysUntil === 2) {
-          return "Needs water in 2 days";
-        }
-        if (daysUntil > 2) {
-          return "Needs water in " + daysUntil + " days";
-        }
-        if (daysUntil === -1) {
-          return "1 day late";
-        }
-        return Math.abs(daysUntil) + " days late";
-      }
-
       function compactCountdown(daysUntil) {
         if (daysUntil === 0) {
-          return "today!";
+          return "aujourd’hui !";
         }
         if (daysUntil > 0) {
-          return "in " + daysUntil + " day" + (daysUntil > 1 ? "s" : "");
+          return "dans " + daysUntil + " jour" + (daysUntil > 1 ? "s" : "");
         }
         var late = Math.abs(daysUntil);
-        return late + " day" + (late > 1 ? "s" : "") + " late";
+        return late + " jour" + (late > 1 ? "s" : "") + " de retard";
       }
 
-      function savePlants() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(plants));
-      }
-
-      function loadPlants() {
-        try {
-          var raw = localStorage.getItem(STORAGE_KEY);
-          var parsed = raw ? JSON.parse(raw) : [];
-          plants = Array.isArray(parsed) ? parsed : [];
-        } catch (error) {
-          plants = [];
+      function longCountdown(daysUntil) {
+        if (daysUntil === 0) {
+          return "Arrosage prévu aujourd’hui";
         }
+        if (daysUntil > 0) {
+          return "À arroser dans " + daysUntil + " jour" + (daysUntil > 1 ? "s" : "");
+        }
+        var late = Math.abs(daysUntil);
+        return "En retard de " + late + " jour" + (late > 1 ? "s" : "");
       }
 
       function sortPlants(list) {
@@ -1154,112 +1700,157 @@
           if (statusA.daysUntil !== statusB.daysUntil) {
             return statusA.daysUntil - statusB.daysUntil;
           }
-          return a.name.localeCompare(b.name);
+          return a.name.localeCompare(b.name, "fr");
         });
       }
 
+      function saveCache(nextPlants) {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify(nextPlants));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function loadCache() {
+        try {
+          var raw = localStorage.getItem(CACHE_KEY);
+          var parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function setConnectionState(isOnline, bannerMessage) {
+        isLiveConnected = isOnline;
+        liveStatusEl.classList.toggle("offline", !isOnline);
+        liveStatusTextEl.textContent = isOnline ? "Synchronisé" : "Hors ligne";
+        offlineBannerEl.textContent = bannerMessage || "Connexion Firebase indisponible. L’application affiche les dernières données connues.";
+        offlineBannerEl.classList.toggle("show", !isOnline);
+      }
+
+      function setPlants(nextPlants) {
+        plants = sortPlants(nextPlants || []);
+        saveCache(plants);
+        renderPlants();
+      }
+
       function updateSummary() {
-        var needsToday = plants.filter(function (plant) {
+        var needsNow = plants.filter(function (plant) {
           return getStatus(plant).daysUntil <= 0;
         }).length;
 
-        if (needsToday === 0) {
-          summaryBadgeEl.textContent = "All plants are happy today";
+        if (plants.length === 0) {
+          summaryBadgeEl.textContent = "Aucune plante enregistrée pour le moment";
           return;
         }
 
-        if (needsToday === 1) {
-          summaryBadgeEl.textContent = "1 plant needs water today";
+        if (needsNow === 0) {
+          summaryBadgeEl.textContent = "Toutes les plantes vont bien aujourd’hui";
           return;
         }
 
-        summaryBadgeEl.textContent = needsToday + " plants need water today";
-      }
-
-      function createAvatar(plant) {
-        if (plant.photo) {
-          return '<img src="' + plant.photo + '" alt="' + escapeHtml(plant.name) + '">';
+        if (needsNow === 1) {
+          summaryBadgeEl.textContent = "1 plante a besoin d’eau aujourd’hui";
+          return;
         }
-        return escapeHtml(plant.emoji || "🪴");
+
+        summaryBadgeEl.textContent = needsNow + " plantes ont besoin d’eau aujourd’hui";
       }
 
-      function escapeHtml(value) {
-        return String(value)
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#39;");
+      function createEmptyState() {
+        return [
+          '<div class="empty-state">',
+          '<div class="empty-art" aria-hidden="true">',
+          '<div class="spark one">✨</div>',
+          '<div class="spark two">💧</div>',
+          '<div class="spark three">🌿</div>',
+          '<div class="leaf left"></div>',
+          '<div class="leaf right"></div>',
+          '<div class="stem"></div>',
+          '<div class="pot"></div>',
+          '</div>',
+          '<h3>Aucune plante pour l’instant</h3>',
+          '<p>Ajoutez votre première plante et Plantologie synchronisera son suivi d’arrosage sur tous vos appareils.</p>',
+          '</div>'
+        ].join("");
       }
 
-      function renderEmptyState() {
-        plantListEl.innerHTML =
-          '<div class="empty-state">' +
-            '<div class="empty-art" aria-hidden="true">' +
-              '<div class="spark one">✨</div>' +
-              '<div class="spark two">💧</div>' +
-              '<div class="spark three">🌿</div>' +
-              '<div class="leaf left"></div>' +
-              '<div class="leaf right"></div>' +
-              '<div class="stem"></div>' +
-              '<div class="pot"></div>' +
-            '</div>' +
-            '<h3>No plants yet</h3>' +
-            '<p>Add your first plant and Plantologie will help you keep its watering rhythm beautifully simple.</p>' +
-          '</div>';
+      function isSelected(plantId) {
+        return selectedPlantIds.indexOf(plantId) !== -1;
       }
 
       function renderPlants() {
         updateSummary();
+        updateSelectionUI();
+        waterAllBtnEl.classList.toggle("hidden", plants.length === 0);
+        plantListEl.classList.toggle("hidden", currentViewMode !== "list");
+        gridViewEl.classList.toggle("hidden", currentViewMode !== "grid");
+        plantsStageEl.classList.toggle("selection-mode", isSelectionMode);
 
         if (!plants.length) {
-          renderEmptyState();
+          plantListEl.innerHTML = createEmptyState();
+          gridViewEl.innerHTML = "";
           return;
         }
 
-        var sortedPlants = sortPlants(plants);
-        plantListEl.innerHTML = sortedPlants.map(function (plant) {
+        plantListEl.innerHTML = plants.map(function (plant) {
           var statusInfo = getStatus(plant);
-          return (
-            '<article class="card-shell" data-id="' + plant.id + '">' +
-              '<div class="delete-lane">' +
-                '<button class="delete-btn" type="button" data-action="delete">Delete</button>' +
-              '</div>' +
-              '<div class="plant-card ' + statusInfo.status + '" data-card="' + plant.id + '">' +
-                '<div class="celebration" data-celebration="' + plant.id + '">' +
-                  '<span class="drop d1"></span>' +
-                  '<span class="drop d2"></span>' +
-                  '<span class="drop d3"></span>' +
-                  '<span class="drop d4"></span>' +
-                  '<span class="check">✓</span>' +
-                '</div>' +
-                '<div class="card-top">' +
-                  '<div class="avatar">' + createAvatar(plant) + '</div>' +
-                  '<div class="card-main">' +
-                    '<div class="card-title-row">' +
-                      '<h3 class="plant-name">' + escapeHtml(plant.name) + '</h3>' +
-                      '<span class="status-badge ' + statusInfo.status + '">' + statusInfo.emoji + ' ' + statusInfo.label + '</span>' +
-                    '</div>' +
-                    '<div class="meta-grid">' +
-                      '<div class="meta-chip">' +
-                        '<span class="meta-label">Frequency</span>' +
-                        '<span class="meta-value">Every ' + escapeHtml(plant.frequency) + ' day' + (Number(plant.frequency) > 1 ? "s" : "") + '</span>' +
-                      '</div>' +
-                      '<div class="meta-chip">' +
-                        '<span class="meta-label">Last watered</span>' +
-                        '<span class="meta-value">' + formatShortDate(plant.lastWatered) + '</span>' +
-                      '</div>' +
-                    '</div>' +
-                    '<div class="countdown">' + compactCountdown(statusInfo.daysUntil) + '</div>' +
-                  '</div>' +
-                '</div>' +
-                '<button class="water-btn" type="button" data-action="water">I watered it! 💧</button>' +
-              '</div>' +
+          var selected = isSelected(plant.id);
+          return [
+            '<article class="card-shell" data-id="', plant.id, '">',
+            '<div class="delete-lane"><button class="delete-btn" type="button" data-action="delete">Supprimer</button></div>',
+            '<div class="plant-card ', statusInfo.status, selected ? ' selected-card' : '', '" data-card="', plant.id, '">',
+            '<div class="celebration" data-celebration="', plant.id, '">',
+            '<span class="drop d1"></span><span class="drop d2"></span><span class="drop d3"></span><span class="drop d4"></span><span class="check">✓</span>',
+            '</div>',
+            '<div class="card-top">',
+            '<span class="selector', selected ? ' checked' : '', '">✓</span>',
+            '<div class="avatar"><img src="', getPlantPhoto(plant), '" alt="', escapeHtml(plant.name), '"></div>',
+            '<div class="card-main">',
+            '<div class="card-title-row">',
+            '<h3 class="plant-name">', escapeHtml(plant.name), '</h3>',
+            '<span class="status-badge ', statusInfo.status, '">', statusInfo.emoji, ' ', statusInfo.label, '</span>',
+            '</div>',
+            '<div class="meta-grid">',
+            '<div class="meta-chip"><span class="meta-label">Fréquence</span><span class="meta-value">Tous les ', escapeHtml(plant.frequency), ' jour', Number(plant.frequency) > 1 ? 's' : '', '</span></div>',
+            '<div class="meta-chip"><span class="meta-label">Dernier arrosage</span><span class="meta-value">', formatShortDate(plant.lastWatered), '</span></div>',
+            '</div>',
+            '<div class="countdown">', compactCountdown(statusInfo.daysUntil), '</div>',
+            '</div>',
+            '</div>',
+            '<button class="water-btn" type="button" data-action="water">Je l’ai arrosée ! 💧</button>',
+            '</div>',
             '</article>'
-          );
+          ].join("");
+        }).join("");
+
+        gridViewEl.innerHTML = plants.map(function (plant) {
+          var statusInfo = getStatus(plant);
+          var selected = isSelected(plant.id);
+          return [
+            '<article class="grid-card', selected ? ' grid-selected selected-card' : '', '" data-grid-card="', plant.id, '">',
+            '<div class="grid-photo-wrap"><div class="grid-photo" style="background-image:url(\'', getPlantPhoto(plant).replace(/'/g, "%27"), '\')"></div></div>',
+            '<div class="grid-selector', selected ? ' checked' : '', '">✓</div>',
+            '<div class="grid-pill ', statusInfo.status, '">', statusInfo.emoji, '</div>',
+            '<div class="grid-overlay">',
+            '<h3 class="grid-title">', escapeHtml(plant.name), '</h3>',
+            '<div class="grid-sub">', compactCountdown(statusInfo.daysUntil), '</div>',
+            '</div>',
+            '</article>'
+          ].join("");
         }).join("");
 
         bindCardInteractions();
+      }
+
+      function updateSelectionUI() {
+        var count = selectedPlantIds.length;
+        selectionCountEl.textContent = count + " plante" + (count > 1 ? "s" : "") + " sélectionnée" + (count > 1 ? "s" : "");
+        selectionBarEl.classList.toggle("show", isSelectionMode);
+        selectModeBtnEl.classList.toggle("active", isSelectionMode);
+        selectModeBtnEl.textContent = isSelectionMode ? "Mode sélection" : "Sélectionner";
       }
 
       function showToast(message) {
@@ -1268,33 +1859,7 @@
         window.clearTimeout(showToast.timeoutId);
         showToast.timeoutId = window.setTimeout(function () {
           toastEl.classList.remove("show");
-        }, 2200);
-      }
-
-      function buildEmojiGrid() {
-        emojiGridEl.innerHTML = EMOJIS.map(function (emoji) {
-          var selected = emoji === selectedEmoji ? " selected" : "";
-          return '<button class="emoji-option' + selected + '" type="button" data-emoji="' + emoji + '" aria-pressed="' + (emoji === selectedEmoji) + '">' + emoji + '</button>';
-        }).join("");
-      }
-
-      function updatePreview() {
-        if (photoDataUrl) {
-          previewBadgeEl.innerHTML = '<img src="' + photoDataUrl + '" alt="Uploaded plant preview">';
-          previewTextEl.textContent = "Uploaded photo selected";
-          return;
-        }
-
-        previewBadgeEl.textContent = selectedEmoji;
-        previewTextEl.textContent = "Emoji avatar selected";
-      }
-
-      function resetForm() {
-        plantFormEl.reset();
-        selectedEmoji = "🪴";
-        photoDataUrl = "";
-        buildEmojiGrid();
-        updatePreview();
+        }, 2400);
       }
 
       function switchView(targetId) {
@@ -1307,25 +1872,125 @@
         });
       }
 
-      function handlePhotoUpload(file) {
-        if (!file) {
-          photoDataUrl = "";
-          updatePreview();
+      function setViewMode(mode) {
+        currentViewMode = mode === "grid" ? "grid" : "list";
+        localStorage.setItem(VIEW_KEY, currentViewMode);
+        listToggleEl.classList.toggle("active", currentViewMode === "list");
+        gridToggleEl.classList.toggle("active", currentViewMode === "grid");
+        renderPlants();
+      }
+
+      function resetForm() {
+        plantFormEl.reset();
+        photoDataUrl = "";
+        updatePreview();
+      }
+
+      function updatePreview() {
+        var photo = photoDataUrl || defaultPlantPhoto;
+        previewBadgeEl.style.backgroundImage = "url('" + photo.replace(/'/g, "%27") + "')";
+        previewTextEl.textContent = photoDataUrl ? "Photo choisie pour la plante" : "Illustration botanique par défaut utilisée si aucune photo n’est prise";
+        if (photoDataUrl) {
+          photoFrameEl.style.backgroundImage = "url('" + photoDataUrl.replace(/'/g, "%27") + "')";
+          photoFrameEl.style.backgroundSize = "cover";
+          photoFrameEl.style.backgroundPosition = "center";
+          photoPlaceholderEl.classList.add("hidden");
+        } else {
+          photoFrameEl.style.backgroundImage = "";
+          photoPlaceholderEl.classList.remove("hidden");
+        }
+      }
+
+      function getFirebaseConfigured() {
+        return firebaseConfig &&
+          firebaseConfig.apiKey !== "A_REMPLIR" &&
+          firebaseConfig.authDomain !== "A_REMPLIR" &&
+          firebaseConfig.databaseURL !== "A_REMPLIR" &&
+          firebaseConfig.projectId !== "A_REMPLIR";
+      }
+
+      function normalizeSnapshotObject(value) {
+        if (!value || typeof value !== "object") {
+          return [];
+        }
+        return Object.keys(value).map(function (key) {
+          return value[key];
+        }).filter(Boolean);
+      }
+
+      function initFirebaseSync() {
+        if (!getFirebaseConfigured()) {
+          setConnectionState(false, "Firebase n’est pas encore configuré dans le fichier. Complétez les variables en haut du script pour activer la synchronisation temps réel.");
+          setPlants(loadCache());
           return;
         }
 
-        if (!file.type || file.type.indexOf("image/") !== 0) {
-          showToast("Please choose an image file.");
-          photoInputEl.value = "";
+        if (typeof firebase === "undefined" || !firebase.initializeApp) {
+          setConnectionState(false, "Les scripts Firebase n’ont pas pu être chargés. Les dernières données connues restent affichées.");
+          setPlants(loadCache());
           return;
         }
 
-        var reader = new FileReader();
-        reader.onload = function (event) {
-          photoDataUrl = event.target.result;
-          updatePreview();
-        };
-        reader.readAsDataURL(file);
+        try {
+          if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+          }
+          db = firebase.database();
+          plantsRef = db.ref("plants");
+          isFirebaseReady = true;
+
+          plantsRef.on("value", function (snapshot) {
+            var data = snapshot.val();
+            setPlants(normalizeSnapshotObject(data));
+            setConnectionState(true);
+          }, function () {
+            setConnectionState(false, "Connexion temps réel interrompue. Les dernières données synchronisées restent disponibles.");
+            setPlants(loadCache());
+          });
+
+          if (typeof db.ref(".info/connected").on === "function") {
+            db.ref(".info/connected").on("value", function (snapshot) {
+              var connected = !!snapshot.val();
+              if (connected) {
+                setConnectionState(true);
+              } else {
+                setConnectionState(false, "Appareil hors ligne ou Firebase momentanément indisponible. Affichage du dernier état connu.");
+              }
+            });
+          }
+        } catch (error) {
+          isFirebaseReady = false;
+          setConnectionState(false, "Impossible d’initialiser Firebase pour le moment. L’application continue avec le cache local.");
+          setPlants(loadCache());
+        }
+      }
+
+      function writePlantsToFirebase(nextPlants, successMessage, onDone) {
+        if (!isFirebaseReady || !plantsRef) {
+          setConnectionState(false, "Écriture impossible vers Firebase pour le moment. Vérifiez votre configuration ou la connexion.");
+          showToast("Synchronisation indisponible pour le moment.");
+          return;
+        }
+
+        var payload = {};
+        nextPlants.forEach(function (plant) {
+          payload[plant.id] = plant;
+        });
+
+        plantsRef.set(payload)
+          .then(function () {
+            saveCache(nextPlants);
+            if (successMessage) {
+              showToast(successMessage);
+            }
+            if (typeof onDone === "function") {
+              onDone();
+            }
+          })
+          .catch(function () {
+            setConnectionState(false, "L’enregistrement Firebase a échoué. Les dernières données connues restent affichées.");
+            showToast("Impossible d’enregistrer sur Firebase.");
+          });
       }
 
       function createPlant(data) {
@@ -1334,24 +1999,112 @@
           id: "plant-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
           name: data.name,
           frequency: Number(data.frequency),
-          emoji: data.emoji,
-          photo: data.photo,
+          photo: data.photo || defaultPlantPhoto,
           lastWatered: today
         };
       }
 
       function waterPlant(plantId) {
         var today = toDateInputString(startOfToday());
-        plants = plants.map(function (plant) {
+        var nextPlants = plants.map(function (plant) {
           if (plant.id === plantId) {
             return Object.assign({}, plant, { lastWatered: today });
           }
           return plant;
         });
-        savePlants();
+
+        writePlantsToFirebase(nextPlants, "Arrosage enregistré pour aujourd’hui.", function () {
+          triggerCelebration(plantId);
+          if (sheetPlantId === plantId) {
+            openDetailsSheet(plantId);
+          }
+        });
+      }
+
+      function waterSelectedPlants() {
+        if (!selectedPlantIds.length) {
+          showToast("Sélectionnez au moins une plante.");
+          return;
+        }
+
+        var today = toDateInputString(startOfToday());
+        var count = selectedPlantIds.length;
+        var nextPlants = plants.map(function (plant) {
+          if (selectedPlantIds.indexOf(plant.id) !== -1) {
+            return Object.assign({}, plant, { lastWatered: today });
+          }
+          return plant;
+        });
+
+        writePlantsToFirebase(nextPlants, "💧 " + count + " plante" + (count > 1 ? "s arrosées !" : " arrosée !"), function () {
+          triggerSelectionCelebration(count);
+          exitSelectionMode();
+        });
+      }
+
+      function waterAllPlants() {
+        if (!plants.length) {
+          return;
+        }
+
+        var today = toDateInputString(startOfToday());
+        var nextPlants = plants.map(function (plant) {
+          return Object.assign({}, plant, { lastWatered: today });
+        });
+
+        writePlantsToFirebase(nextPlants, "🌿 Toutes les plantes sont arrosées !", function () {
+          triggerRainCelebration(26);
+        });
+      }
+
+      function deletePlant(plantId) {
+        var nextPlants = plants.filter(function (plant) {
+          return plant.id !== plantId;
+        });
+
+        writePlantsToFirebase(nextPlants, "Plante supprimée.");
+      }
+
+      function toggleSelectionMode(forceValue) {
+        isSelectionMode = typeof forceValue === "boolean" ? forceValue : !isSelectionMode;
+        if (!isSelectionMode) {
+          selectedPlantIds = [];
+        }
         renderPlants();
-        triggerCelebration(plantId);
-        showToast("Watering saved for today.");
+      }
+
+      function enterSelectionMode(preselectId) {
+        isSelectionMode = true;
+        if (preselectId && selectedPlantIds.indexOf(preselectId) === -1) {
+          selectedPlantIds.push(preselectId);
+        }
+        renderPlants();
+      }
+
+      function exitSelectionMode() {
+        isSelectionMode = false;
+        selectedPlantIds = [];
+        renderPlants();
+      }
+
+      function togglePlantSelection(plantId) {
+        if (!isSelectionMode) {
+          return;
+        }
+
+        var index = selectedPlantIds.indexOf(plantId);
+        if (index === -1) {
+          selectedPlantIds.push(plantId);
+        } else {
+          selectedPlantIds.splice(index, 1);
+        }
+
+        if (!selectedPlantIds.length) {
+          exitSelectionMode();
+          return;
+        }
+
+        renderPlants();
       }
 
       function triggerCelebration(plantId) {
@@ -1359,33 +2112,68 @@
         if (!celebration) {
           return;
         }
-
         celebration.classList.remove("active");
         void celebration.offsetWidth;
         celebration.classList.add("active");
-
         window.setTimeout(function () {
           celebration.classList.remove("active");
         }, 1300);
       }
 
-      function requestDelete(plantId) {
-        pendingDeleteId = plantId;
-        if (typeof confirmDialogEl.showModal === "function") {
-          confirmDialogEl.showModal();
-        } else if (window.confirm("Delete this plant?")) {
-          deletePlant(pendingDeleteId);
-        }
+      function triggerSelectionCelebration(count) {
+        triggerRainCelebration(Math.max(8, Math.min(20, count * 4)));
       }
 
-      function deletePlant(plantId) {
-        plants = plants.filter(function (plant) {
-          return plant.id !== plantId;
-        });
-        savePlants();
-        renderPlants();
+      function triggerRainCelebration(amount) {
+        rainLayerEl.innerHTML = "";
+        for (var i = 0; i < amount; i += 1) {
+          var drop = document.createElement("span");
+          drop.className = "rain-drop";
+          drop.style.left = Math.round(Math.random() * 100) + "%";
+          drop.style.animationDelay = (Math.random() * 0.6) + "s";
+          drop.style.animationDuration = (1 + Math.random() * 0.8) + "s";
+          rainLayerEl.appendChild(drop);
+        }
+        rainLayerEl.classList.add("show");
+        window.clearTimeout(triggerRainCelebration.timeoutId);
+        triggerRainCelebration.timeoutId = window.setTimeout(function () {
+          rainLayerEl.classList.remove("show");
+          rainLayerEl.innerHTML = "";
+        }, 2200);
+      }
+
+      function openDialog(title, copy, actionType, actionId) {
+        dialogTitleEl.textContent = title;
+        dialogCopyEl.textContent = copy;
+        pendingAction = actionType;
+        pendingDeleteId = actionId || null;
+        confirmDialogEl.classList.add("show");
+      }
+
+      function closeDialog() {
+        confirmDialogEl.classList.remove("show");
+        pendingAction = null;
         pendingDeleteId = null;
-        showToast("Plant deleted.");
+      }
+
+      function openDetailsSheet(plantId) {
+        var plant = plants.find(function (item) { return item.id === plantId; });
+        if (!plant) {
+          return;
+        }
+        var statusInfo = getStatus(plant);
+        sheetPlantId = plant.id;
+        sheetPhotoEl.style.backgroundImage = "url('" + getPlantPhoto(plant).replace(/'/g, "%27") + "')";
+        sheetTitleEl.textContent = plant.name;
+        sheetStatusEl.textContent = statusInfo.emoji + " " + longCountdown(statusInfo.daysUntil);
+        sheetFrequencyEl.textContent = "Tous les " + plant.frequency + " jour" + (Number(plant.frequency) > 1 ? "s" : "");
+        sheetLastWateredEl.textContent = formatShortDate(plant.lastWatered);
+        detailsSheetEl.classList.add("show");
+      }
+
+      function closeDetailsSheet() {
+        detailsSheetEl.classList.remove("show");
+        sheetPlantId = null;
       }
 
       function closeAllDeleteLanes(exceptShell) {
@@ -1399,12 +2187,23 @@
       function bindCardInteractions() {
         document.querySelectorAll(".card-shell").forEach(function (shell) {
           var card = shell.querySelector(".plant-card");
+          var plantId = shell.getAttribute("data-id");
           var pressTimer = null;
           var startX = 0;
           var currentX = 0;
           var longPressTriggered = false;
 
+          function clearTimer() {
+            if (pressTimer) {
+              clearTimeout(pressTimer);
+              pressTimer = null;
+            }
+          }
+
           function openDelete() {
+            if (isSelectionMode) {
+              return;
+            }
             closeAllDeleteLanes(shell);
             shell.classList.add("reveal-delete");
           }
@@ -1419,26 +2218,31 @@
             longPressTriggered = false;
             pressTimer = window.setTimeout(function () {
               longPressTriggered = true;
-              openDelete();
-            }, 550);
+              enterSelectionMode(plantId);
+            }, 520);
           }, { passive: true });
 
           card.addEventListener("touchmove", function (event) {
             currentX = event.touches[0].clientX;
-            var deltaX = currentX - startX;
-            if (Math.abs(deltaX) > 10 && pressTimer) {
-              clearTimeout(pressTimer);
-              pressTimer = null;
+            if (Math.abs(currentX - startX) > 10) {
+              clearTimer();
             }
           }, { passive: true });
 
-          card.addEventListener("touchend", function () {
-            if (pressTimer) {
-              clearTimeout(pressTimer);
-              pressTimer = null;
+          card.addEventListener("touchend", function (event) {
+            clearTimer();
+            var waterBtn = event.target.closest('[data-action="water"]');
+            var deleteBtn = event.target.closest('[data-action="delete"]');
+            if (waterBtn || deleteBtn) {
+              return;
             }
 
             var deltaX = currentX - startX;
+            if (isSelectionMode) {
+              togglePlantSelection(plantId);
+              return;
+            }
+
             if (!longPressTriggered) {
               if (deltaX < -40) {
                 openDelete();
@@ -1452,27 +2256,122 @@
             longPressTriggered = false;
             pressTimer = window.setTimeout(function () {
               longPressTriggered = true;
-              openDelete();
-            }, 650);
+              enterSelectionMode(plantId);
+            }, 620);
           });
 
-          ["mouseup", "mouseleave"].forEach(function (eventName) {
-            card.addEventListener(eventName, function () {
-              if (pressTimer) {
-                clearTimeout(pressTimer);
-                pressTimer = null;
-              }
-            });
+          ["mouseup", "mouseleave"].forEach(function (name) {
+            card.addEventListener(name, clearTimer);
           });
 
-          shell.querySelector('[data-action="water"]').addEventListener("click", function () {
-            waterPlant(shell.getAttribute("data-id"));
+          card.addEventListener("click", function (event) {
+            if (event.target.closest('[data-action="water"]') || event.target.closest('[data-action="delete"]')) {
+              return;
+            }
+            if (isSelectionMode) {
+              togglePlantSelection(plantId);
+            }
           });
 
-          shell.querySelector('[data-action="delete"]').addEventListener("click", function () {
-            requestDelete(shell.getAttribute("data-id"));
+          shell.querySelector('[data-action="water"]').addEventListener("click", function (event) {
+            event.stopPropagation();
+            waterPlant(plantId);
+          });
+
+          shell.querySelector('[data-action="delete"]').addEventListener("click", function (event) {
+            event.stopPropagation();
+            openDialog("Supprimer cette plante ?", "Cette plante sera retirée de votre collection synchronisée.", "delete", plantId);
           });
         });
+
+        document.querySelectorAll("[data-grid-card]").forEach(function (card) {
+          var plantId = card.getAttribute("data-grid-card");
+          var pressTimer = null;
+
+          function clearTimer() {
+            if (pressTimer) {
+              clearTimeout(pressTimer);
+              pressTimer = null;
+            }
+          }
+
+          card.addEventListener("touchstart", function () {
+            pressTimer = window.setTimeout(function () {
+              enterSelectionMode(plantId);
+            }, 520);
+          }, { passive: true });
+
+          card.addEventListener("touchmove", clearTimer, { passive: true });
+          card.addEventListener("touchend", clearTimer);
+          card.addEventListener("mousedown", function () {
+            pressTimer = window.setTimeout(function () {
+              enterSelectionMode(plantId);
+            }, 620);
+          });
+          ["mouseup", "mouseleave"].forEach(function (name) {
+            card.addEventListener(name, clearTimer);
+          });
+
+          card.addEventListener("click", function () {
+            if (isSelectionMode) {
+              togglePlantSelection(plantId);
+            } else {
+              openDetailsSheet(plantId);
+            }
+          });
+        });
+      }
+
+      function compressImage(file) {
+        return new Promise(function (resolve, reject) {
+          if (!file) {
+            resolve("");
+            return;
+          }
+
+          if (!file.type || file.type.indexOf("image/") !== 0) {
+            reject(new Error("invalid-file"));
+            return;
+          }
+
+          var reader = new FileReader();
+          reader.onload = function (event) {
+            var image = new Image();
+            image.onload = function () {
+              var maxSize = 400;
+              var width = image.width;
+              var height = image.height;
+              var scale = Math.min(maxSize / width, maxSize / height, 1);
+              var canvas = document.createElement("canvas");
+              canvas.width = Math.round(width * scale);
+              canvas.height = Math.round(height * scale);
+              var context = canvas.getContext("2d");
+              context.drawImage(image, 0, 0, canvas.width, canvas.height);
+              resolve(canvas.toDataURL("image/jpeg", 0.75));
+            };
+            image.onerror = function () {
+              reject(new Error("image-load"));
+            };
+            image.src = event.target.result;
+          };
+          reader.onerror = function () {
+            reject(new Error("reader"));
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function handlePhotoSelection(file) {
+        compressImage(file)
+          .then(function (compressedDataUrl) {
+            photoDataUrl = compressedDataUrl || "";
+            updatePreview();
+          })
+          .catch(function () {
+            photoDataUrl = "";
+            updatePreview();
+            showToast("Impossible de traiter cette image.");
+          });
       }
 
       function bindEvents() {
@@ -1482,20 +2381,16 @@
           });
         });
 
-        emojiGridEl.addEventListener("click", function (event) {
-          var button = event.target.closest(".emoji-option");
-          if (!button) {
-            return;
-          }
-          selectedEmoji = button.getAttribute("data-emoji");
-          photoDataUrl = "";
-          photoInputEl.value = "";
-          buildEmojiGrid();
-          updatePreview();
+        listToggleEl.addEventListener("click", function () {
+          setViewMode("list");
+        });
+
+        gridToggleEl.addEventListener("click", function () {
+          setViewMode("grid");
         });
 
         photoInputEl.addEventListener("change", function (event) {
-          handlePhotoUpload(event.target.files[0]);
+          handlePhotoSelection(event.target.files[0]);
         });
 
         plantFormEl.addEventListener("submit", function (event) {
@@ -1505,38 +2400,70 @@
           var frequency = Number(document.getElementById("frequency").value);
 
           if (!name) {
-            showToast("Please enter a plant name.");
+            showToast("Veuillez saisir un nom de plante.");
             return;
           }
 
           if (!Number.isFinite(frequency) || frequency < 1) {
-            showToast("Watering frequency must be at least 1 day.");
+            showToast("La fréquence doit être d’au moins 1 jour.");
             return;
           }
 
-          plants.push(createPlant({
+          var nextPlants = plants.concat(createPlant({
             name: name,
             frequency: frequency,
-            emoji: selectedEmoji,
-            photo: photoDataUrl
+            photo: photoDataUrl || defaultPlantPhoto
           }));
-          savePlants();
-          renderPlants();
-          resetForm();
-          switchView("plantsView");
-          showToast("Plant added successfully.");
+
+          writePlantsToFirebase(nextPlants, "Plante ajoutée avec succès.", function () {
+            resetForm();
+            switchView("plantsView");
+          });
         });
 
-        cancelDeleteEl.addEventListener("click", function () {
-          pendingDeleteId = null;
-          confirmDialogEl.close();
+        selectModeBtnEl.addEventListener("click", function () {
+          toggleSelectionMode();
         });
 
-        confirmDeleteEl.addEventListener("click", function () {
-          if (pendingDeleteId) {
+        cancelSelectionBtnEl.addEventListener("click", function () {
+          exitSelectionMode();
+        });
+
+        waterSelectedBtnEl.addEventListener("click", function () {
+          waterSelectedPlants();
+        });
+
+        waterAllBtnEl.addEventListener("click", function () {
+          openDialog(
+            "Arroser toutes les plantes ?",
+            "Arroser toutes les plantes ? (" + plants.length + " plante" + (plants.length > 1 ? "s" : "") + ")",
+            "waterAll"
+          );
+        });
+
+        cancelDialogBtnEl.addEventListener("click", closeDialog);
+        confirmDialogBtnEl.addEventListener("click", function () {
+          if (pendingAction === "delete" && pendingDeleteId) {
             deletePlant(pendingDeleteId);
+          } else if (pendingAction === "waterAll") {
+            waterAllPlants();
           }
-          confirmDialogEl.close();
+          closeDialog();
+        });
+
+        confirmDialogEl.querySelectorAll("[data-close-dialog]").forEach(function (element) {
+          element.addEventListener("click", closeDialog);
+        });
+
+        detailsSheetEl.querySelectorAll("[data-close-sheet]").forEach(function (element) {
+          element.addEventListener("click", closeDetailsSheet);
+        });
+
+        sheetCloseBtnEl.addEventListener("click", closeDetailsSheet);
+        sheetWaterBtnEl.addEventListener("click", function () {
+          if (sheetPlantId) {
+            waterPlant(sheetPlantId);
+          }
         });
 
         document.addEventListener("click", function (event) {
@@ -1548,11 +2475,11 @@
 
       function init() {
         todayDateEl.textContent = formatDate(new Date());
-        loadPlants();
-        buildEmojiGrid();
         updatePreview();
-        renderPlants();
         bindEvents();
+        setViewMode(currentViewMode);
+        setPlants(loadCache());
+        initFirebaseSync();
       }
 
       init();
@@ -1561,7 +2488,36 @@
 </body>
 </html>
 <!--
-Instructions de mise en ligne sur GitHub Pages
+Guide Firebase (en français)
+
+1. Créer un projet Firebase gratuit
+   - Ouvrez https://console.firebase.google.com
+   - Connectez-vous avec votre compte Google
+   - Cliquez sur "Créer un projet"
+   - Donnez un nom à votre projet
+   - Vous pouvez désactiver Google Analytics si vous voulez aller plus vite
+   - Validez la création du projet
+
+2. Activer Realtime Database en mode test
+   - Dans le menu de gauche, ouvrez "Build" puis "Realtime Database"
+   - Cliquez sur "Créer une base de données"
+   - Choisissez une région
+   - Sélectionnez "Démarrer en mode test"
+   - Confirmez
+
+3. Récupérer la configuration du projet
+   - Dans Firebase, ouvrez les paramètres du projet
+   - Dans la section "Vos applications", ajoutez une application Web si nécessaire
+   - Copiez les valeurs de configuration :
+     apiKey
+     authDomain
+     databaseURL
+     projectId
+   - Ouvrez ce fichier `index.html`
+   - Cherchez le bloc `var firebaseConfig = { ... }`
+   - Remplacez toutes les valeurs `A_REMPLIR` par les vraies valeurs Firebase
+
+Guide GitHub Pages (mise en ligne)
 
 1. Créer un compte GitHub
    - Ouvrez https://github.com
@@ -1582,7 +2538,12 @@ Instructions de mise en ligne sur GitHub Pages
    - Descendez en bas de la page
    - Cliquez sur "Commit changes"
 
-4. Activer GitHub Pages
+4. Vérifier que Firebase est configuré
+   - Avant ou après l’envoi du fichier sur GitHub, ouvrez `index.html`
+   - Vérifiez que le bloc `firebaseConfig` contient vos vraies valeurs Firebase
+   - Sans cette étape, l’application fonctionnera seulement avec le dernier cache local connu
+
+5. Activer GitHub Pages
    - Ouvrez l’onglet "Settings" du dépôt
    - Dans le menu latéral, cliquez sur "Pages"
    - Dans la section "Build and deployment", choisissez :
@@ -1591,7 +2552,7 @@ Instructions de mise en ligne sur GitHub Pages
    - Sélectionnez le dossier `/ (root)`
    - Cliquez sur "Save"
 
-5. Ouvrir l’application en ligne
+6. Ouvrir l’application en ligne
    - Attendez environ 1 à 3 minutes
    - GitHub affichera l’adresse publique de votre site dans la page "Pages"
    - L’URL ressemblera à :
