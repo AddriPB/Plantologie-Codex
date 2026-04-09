@@ -7,7 +7,7 @@
   <title>Plantologie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --forest: #1B4332;
@@ -39,7 +39,7 @@
       margin: 0;
       min-height: 100vh;
       min-height: 100dvh;
-      font-family: "Nunito", sans-serif;
+      font-family: "Quicksand", sans-serif;
       color: var(--forest);
       background:
         radial-gradient(circle at 20% 20%, rgba(183, 228, 199, 0.6), transparent 28%),
@@ -93,32 +93,15 @@
       margin: 0 auto;
       min-height: 100vh;
       min-height: 100dvh;
-      padding: calc(18px + var(--safe-top)) 16px calc(138px + var(--safe-bottom));
-    }
-
-    .top-bounce {
-      height: 22px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
-
-    .top-bounce::before {
-      content: "";
-      width: 74px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(27, 67, 50, 0.12);
-      animation: drift 2.8s ease-in-out infinite;
+      padding: calc(8px + var(--safe-top)) 14px calc(104px + var(--safe-bottom));
     }
 
     .hero {
-      padding: 20px 18px 18px;
-      border-radius: 30px;
+      padding: 12px 14px 12px;
+      border-radius: 24px;
       background: linear-gradient(145deg, rgba(255, 255, 255, 0.5), rgba(248, 244, 227, 0.24));
       border: 1px solid rgba(255, 255, 255, 0.45);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-soft);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       overflow: hidden;
@@ -149,12 +132,11 @@
     }
 
     .eyebrow-row,
-    .hero-header-row,
     .hero-actions {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       position: relative;
       z-index: 1;
     }
@@ -163,21 +145,40 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 12px;
+      padding: 6px 10px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.45);
       border: 1px solid rgba(27, 67, 50, 0.08);
-      font-size: 0.82rem;
+      font-size: 0.74rem;
       font-weight: 800;
     }
 
+    .hero-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: 0 0 40px;
+      background: #339966;
+      color: white;
+      box-shadow: 0 10px 20px rgba(51, 153, 102, 0.24);
+    }
+
+    .hero-logo svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: currentColor;
+    }
+
     .space-chip {
-      margin-top: 10px;
+      margin-top: 8px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 12px;
-      border-radius: 16px;
+      padding: 8px 10px;
+      border-radius: 14px;
       background: rgba(255, 255, 255, 0.55);
       border: 1px solid rgba(27, 67, 50, 0.08);
       position: relative;
@@ -186,81 +187,47 @@
     }
 
     .space-chip strong {
-      font-size: 0.92rem;
+      font-size: 0.84rem;
     }
 
     .space-chip span {
       color: rgba(27, 67, 50, 0.74);
       font-weight: 700;
-      font-size: 0.86rem;
+      font-size: 0.8rem;
     }
 
     .space-switch-btn {
       border: none;
-      border-radius: 12px;
-      padding: 8px 10px;
+      border-radius: 10px;
+      padding: 7px 9px;
       background: rgba(27, 67, 50, 0.08);
       color: var(--forest);
       font-weight: 800;
-      min-height: 40px;
-    }
-
-    .live-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 11px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.58);
-      border: 1px solid rgba(27, 67, 50, 0.08);
-      font-size: 0.8rem;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .live-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #25b35b;
-      box-shadow: 0 0 0 6px rgba(37, 179, 91, 0.15);
-    }
-
-    .live-status.offline .live-dot {
-      background: #e14b36;
-      box-shadow: 0 0 0 6px rgba(225, 75, 54, 0.15);
+      min-height: 34px;
     }
 
     .hero-copy {
       position: relative;
       z-index: 1;
-      margin-top: 14px;
+      margin-top: 8px;
     }
 
     h1 {
-      margin: 0 0 4px;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2.1rem, 8vw, 3rem);
-      line-height: 1;
-      letter-spacing: -0.03em;
+      margin: 0 0 2px;
+      font-size: clamp(1.7rem, 7vw, 2.15rem);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
     }
 
     .subtitle {
       margin: 0;
       color: rgba(27, 67, 50, 0.82);
-      font-size: 1rem;
-    }
-
-    .today-date {
-      margin-top: 16px;
-      font-weight: 800;
-      font-size: 0.98rem;
-      position: relative;
-      z-index: 1;
+      font-size: 0.87rem;
+      line-height: 1.2;
     }
 
     .hero-actions {
-      margin-top: 14px;
+      margin-top: 8px;
       align-items: flex-start;
     }
 
@@ -269,34 +236,35 @@
       align-items: center;
       width: fit-content;
       max-width: calc(100% - 110px);
-      gap: 10px;
-      padding: 12px 14px;
-      border-radius: 18px;
+      gap: 8px;
+      padding: 9px 11px;
+      border-radius: 14px;
       background: rgba(27, 67, 50, 0.9);
       color: #fffdf7;
       box-shadow: var(--shadow-soft);
       font-weight: 700;
       line-height: 1.2;
+      font-size: 0.84rem;
     }
 
     .view-toggle {
       display: inline-grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      padding: 6px;
-      border-radius: 18px;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 14px;
       background: rgba(255, 255, 255, 0.52);
       border: 1px solid rgba(27, 67, 50, 0.08);
     }
 
     .toggle-btn {
-      min-width: 42px;
-      min-height: 42px;
+      min-width: 36px;
+      min-height: 36px;
       border: none;
-      border-radius: 14px;
+      border-radius: 10px;
       background: transparent;
       color: rgba(27, 67, 50, 0.68);
-      font-size: 1.15rem;
+      font-size: 1rem;
       font-weight: 800;
       transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
     }
@@ -309,13 +277,13 @@
 
     .offline-banner {
       display: none;
-      margin-top: 12px;
-      padding: 11px 12px;
-      border-radius: 16px;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
       background: rgba(255, 140, 105, 0.14);
       border: 1px solid rgba(255, 140, 105, 0.28);
       color: #8c402e;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 700;
       position: relative;
       z-index: 1;
@@ -326,7 +294,7 @@
     }
 
     .view {
-      margin-top: 18px;
+      margin-top: 12px;
       display: none;
       animation: fadeSlide 0.35s ease;
     }
@@ -339,19 +307,19 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
-      margin: 20px 4px 14px;
+      gap: 10px;
+      margin: 12px 2px 10px;
     }
 
     .section-head h2 {
       margin: 0;
-      font-size: 1.12rem;
+      font-size: 1rem;
       letter-spacing: -0.02em;
     }
 
     .hint {
-      margin: 4px 0 0;
-      font-size: 0.86rem;
+      margin: 2px 0 0;
+      font-size: 0.78rem;
       color: rgba(27, 67, 50, 0.72);
     }
 
@@ -363,13 +331,14 @@
     }
 
     .ghost-btn {
-      min-height: 42px;
-      padding: 10px 14px;
+      min-height: 36px;
+      padding: 7px 11px;
       border: 1px solid rgba(27, 67, 50, 0.1);
-      border-radius: 16px;
+      border-radius: 12px;
       background: rgba(255, 255, 255, 0.54);
       color: var(--forest);
       font-weight: 800;
+      font-size: 0.85rem;
     }
 
     .ghost-btn.active {
@@ -380,16 +349,16 @@
 
     .water-all-btn {
       width: 100%;
-      min-height: 54px;
+      min-height: 48px;
       border: none;
-      border-radius: 20px;
-      padding: 14px 18px;
+      border-radius: 16px;
+      padding: 12px 16px;
       background: linear-gradient(135deg, #52796F, #1B4332);
       color: #fffdf7;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.94rem;
       box-shadow: 0 14px 24px rgba(27, 67, 50, 0.22);
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .hidden {
@@ -1048,7 +1017,7 @@
       bottom: 0;
       z-index: 30;
       width: min(100%, 460px);
-      padding: 10px 16px calc(12px + var(--safe-bottom));
+      padding: 8px 14px calc(8px + var(--safe-bottom));
       transform: translateX(-50%);
       background: linear-gradient(180deg, rgba(248, 244, 227, 0.02), rgba(248, 244, 227, 0.92) 28%);
       backdrop-filter: blur(18px);
@@ -1057,27 +1026,30 @@
 
     .nav-shell {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      padding: 10px;
-      border-radius: 24px;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 20px;
       background: rgba(255, 255, 255, 0.62);
       border: 1px solid rgba(255, 255, 255, 0.45);
       box-shadow: var(--shadow);
+      align-items: center;
     }
 
     .nav-btn {
-      min-height: 58px;
+      min-height: 46px;
       border: none;
-      border-radius: 18px;
+      border-radius: 14px;
       background: transparent;
       color: rgba(27, 67, 50, 0.72);
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       transition: background 0.18s ease, transform 0.18s ease, color 0.18s ease;
+      padding: 0 12px;
+      font-size: 0.92rem;
     }
 
     .nav-btn.active {
@@ -1088,19 +1060,41 @@
     }
 
     .nav-emoji {
-      font-size: 1.15rem;
+      font-size: 1rem;
+    }
+
+    .nav-btn.add-btn {
+      width: 46px;
+      min-width: 46px;
+      padding: 0;
+      border-radius: 50%;
+      background: #339966;
+      color: #ffffff;
+      box-shadow: 0 12px 22px rgba(51, 153, 102, 0.24);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .nav-btn.add-btn.active {
+      background: #2c8a5b;
+      color: #ffffff;
+      transform: translateY(-1px) scale(1.01);
+    }
+
+    .nav-btn.add-btn .nav-emoji {
+      font-size: 1.55rem;
     }
 
     .selection-bar {
       position: fixed;
       left: 50%;
-      bottom: calc(92px + var(--safe-bottom));
+      bottom: calc(74px + var(--safe-bottom));
       transform: translateX(-50%);
       width: min(calc(100% - 20px), 420px);
       z-index: 45;
       display: none;
-      padding: 12px;
-      border-radius: 22px;
+      padding: 8px 10px;
+      border-radius: 18px;
       background: rgba(255, 255, 255, 0.82);
       border: 1px solid rgba(255, 255, 255, 0.55);
       box-shadow: var(--shadow);
@@ -1115,17 +1109,18 @@
 
     .selection-row {
       display: grid;
-      gap: 10px;
+      gap: 6px;
     }
 
     .selection-meta {
       font-weight: 800;
+      font-size: 0.84rem;
     }
 
     .selection-actions {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 10px;
+      gap: 8px;
     }
 
     .text-btn {
@@ -1133,7 +1128,8 @@
       background: transparent;
       color: rgba(27, 67, 50, 0.72);
       font-weight: 800;
-      min-height: 50px;
+      min-height: 40px;
+      font-size: 0.85rem;
     }
 
     .sheet,
@@ -1208,7 +1204,6 @@
       margin: 0;
       font-size: 1.45rem;
       line-height: 1.05;
-      font-family: "Playfair Display", serif;
     }
 
     .sheet-sub {
@@ -1348,11 +1343,6 @@
       50% { transform: translateY(-8px) scale(1.06); }
     }
 
-    @keyframes drift {
-      0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.4; }
-      50% { transform: translateY(4px) scaleX(0.88); opacity: 0.8; }
-    }
-
     @keyframes drip {
       0% { opacity: 0; transform: translateY(0) scale(0.5) rotate(18deg); }
       20% { opacity: 1; }
@@ -1378,14 +1368,13 @@
 </head>
 <body>
   <main class="app-shell">
-    <div class="top-bounce" aria-hidden="true"></div>
-
     <section class="hero">
       <div class="eyebrow-row">
         <div class="eyebrow">🌿 Rituel botanique connecté</div>
-        <div class="live-status offline" id="liveStatus">
-          <span class="live-dot" aria-hidden="true"></span>
-          <span id="liveStatusText">Hors ligne</span>
+        <div class="hero-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <path d="M12 21a1 1 0 0 1-1-1v-4.12C7.32 15.4 5 12.21 5 8.4A1.4 1.4 0 0 1 6.4 7c2.02 0 3.77.72 4.99 1.97C11.87 6.1 13.95 4 17 3a1 1 0 0 1 1 1c0 4.72-2.16 8.16-5 10.02V20a1 1 0 0 1-1 1Zm-.98-7.23c2.89-1 4.63-3.79 4.94-7.85-2.44 1.19-3.98 3.54-4.45 6.78-.04.38-.25.74-.49 1.07Zm-1.95-.45a8.44 8.44 0 0 1 1.1-2.3C9.4 9.74 8.14 9 6.98 8.9c.17 1.94 1.02 3.48 2.09 4.42Z"/>
+          </svg>
         </div>
       </div>
 
@@ -1399,8 +1388,6 @@
         <span id="spaceHint">Saisissez un nom d’espace pour accéder à vos plantes.</span>
         <button class="space-switch-btn" id="changeSpaceBtn" type="button">Changer</button>
       </div>
-
-      <div class="today-date" id="todayDate"></div>
 
       <div class="hero-actions">
         <div class="summary-badge" id="summaryBadge">Aucune plante à arroser aujourd’hui</div>
@@ -1485,9 +1472,8 @@
         <span class="nav-emoji">🌿</span>
         <span>Mes plantes</span>
       </button>
-      <button class="nav-btn" data-view="addView" type="button">
-        <span class="nav-emoji">➕</span>
-        <span>Ajouter</span>
+      <button class="nav-btn add-btn" data-view="addView" type="button" aria-label="Ajouter une plante">
+        <span class="nav-emoji">+</span>
       </button>
     </div>
   </nav>
@@ -1620,20 +1606,17 @@
         "<ellipse cx='240' cy='180' rx='52' ry='24' transform='rotate(20 240 180)' fill='url(#leaf1)' opacity='0.92'/>",
         "<path d='M110 245h90l18 92H92z' fill='url(#pot)'/>",
         "<rect x='92' y='235' width='126' height='22' rx='11' fill='#d4a67a'/>",
-        "<text x='200' y='350' text-anchor='middle' font-family='Nunito, sans-serif' font-size='22' font-weight='800' fill='#1B4332'>Plantologie</text>",
+        "<text x='200' y='350' text-anchor='middle' font-family='Quicksand, sans-serif' font-size='22' font-weight='700' fill='#1B4332'>Plantologie</text>",
         "</svg>"
       ].join("");
       var defaultPlantPhoto = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(defaultPlantSvg)));
 
-      var todayDateEl = document.getElementById("todayDate");
       var summaryBadgeEl = document.getElementById("summaryBadge");
       var plantListEl = document.getElementById("plantList");
       var gridViewEl = document.getElementById("gridView");
       var plantsStageEl = document.getElementById("plantsStage");
       var listToggleEl = document.getElementById("listToggle");
       var gridToggleEl = document.getElementById("gridToggle");
-      var liveStatusEl = document.getElementById("liveStatus");
-      var liveStatusTextEl = document.getElementById("liveStatusText");
       var offlineBannerEl = document.getElementById("offlineBanner");
       var spaceLabelEl = document.getElementById("spaceLabel");
       var spaceHintEl = document.getElementById("spaceHint");
@@ -1696,14 +1679,6 @@
           String(date.getMonth() + 1).padStart(2, "0"),
           String(date.getDate()).padStart(2, "0")
         ].join("-");
-      }
-
-      function formatDate(date) {
-        return new Intl.DateTimeFormat("fr-FR", {
-          weekday: "long",
-          day: "numeric",
-          month: "long"
-        }).format(date);
       }
 
       function formatShortDate(dateString) {
@@ -1839,8 +1814,6 @@
 
       function setConnectionState(isOnline, bannerMessage) {
         isLiveConnected = isOnline;
-        liveStatusEl.classList.toggle("offline", !isOnline);
-        liveStatusTextEl.textContent = isOnline ? "Synchronisé" : "Hors ligne";
         offlineBannerEl.textContent = bannerMessage || "Connexion Firebase indisponible. L’application affiche les dernières données connues.";
         offlineBannerEl.classList.toggle("show", !isOnline);
       }
@@ -2673,7 +2646,6 @@
       }
 
       function init() {
-        todayDateEl.textContent = formatDate(new Date());
         updateSpaceUi();
         updatePreview();
         bindEvents();
