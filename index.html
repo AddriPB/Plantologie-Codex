@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1B4332">
+  <title>Plantologie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #1B4332;
+      --sage: #52796F;
+      --cream: #F8F4E3;
+      --coral: #FF8C69;
+      --sun: #F6C453;
+      --mint: #B7E4C7;
+      --mist: rgba(248, 244, 227, 0.68);
+      --glass: rgba(255, 255, 255, 0.24);
+      --line: rgba(27, 67, 50, 0.12);
+      --shadow: 0 18px 45px rgba(27, 67, 50, 0.15);
+      --shadow-soft: 0 10px 25px rgba(27, 67, 50, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: "Nunito", sans-serif;
+      color: var(--forest);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(183, 228, 199, 0.6), transparent 28%),
+        radial-gradient(circle at 80% 15%, rgba(255, 140, 105, 0.16), transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(82, 121, 111, 0.18), transparent 24%),
+        linear-gradient(180deg, #fefcf5 0%, #f8f4e3 52%, #edf5ec 100%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background:
+        radial-gradient(ellipse at 12% 14%, rgba(82, 121, 111, 0.08) 0 20%, transparent 21%),
+        radial-gradient(ellipse at 82% 22%, rgba(82, 121, 111, 0.08) 0 18%, transparent 19%),
+        radial-gradient(ellipse at 68% 78%, rgba(82, 121, 111, 0.08) 0 16%, transparent 17%),
+        radial-gradient(ellipse at 22% 72%, rgba(82, 121, 111, 0.07) 0 14%, transparent 15%);
+      filter: blur(8px);
+      opacity: 0.8;
+    }
+
+    body::after {
+      background-image:
+        linear-gradient(115deg, transparent 0 47%, rgba(82, 121, 111, 0.06) 47% 49%, transparent 49%),
+        linear-gradient(65deg, transparent 0 48%, rgba(82, 121, 111, 0.05) 48% 50%, transparent 50%);
+      background-size: 160px 160px, 140px 140px;
+      opacity: 0.35;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 460px);
+      margin: 0 auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: calc(18px + var(--safe-top)) 16px calc(120px + var(--safe-bottom));
+    }
+
+    .top-bounce {
+      height: 22px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .top-bounce::before {
+      content: "";
+      width: 74px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(27, 67, 50, 0.12);
+      animation: drift 2.8s ease-in-out infinite;
+    }
+
+    .hero {
+      padding: 22px 20px;
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.5), rgba(248, 244, 227, 0.24));
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(183, 228, 199, 0.5), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 180px;
+      height: 180px;
+      top: -90px;
+      right: -60px;
+    }
+
+    .hero::after {
+      width: 120px;
+      height: 120px;
+      left: -20px;
+      bottom: -55px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(27, 67, 50, 0.08);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 16px 0 4px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.2rem, 8vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: rgba(27, 67, 50, 0.8);
+      font-size: 1rem;
+    }
+
+    .hero-meta {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .today-date {
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .summary-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      max-width: 100%;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(27, 67, 50, 0.9);
+      color: #fffdf7;
+      box-shadow: var(--shadow-soft);
+      font-weight: 700;
+    }
+
+    .view {
+      margin-top: 18px;
+      display: none;
+      animation: fadeSlide 0.35s ease;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 20px 4px 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hint {
+      margin: 0;
+      font-size: 0.86rem;
+      color: rgba(27, 67, 50, 0.7);
+    }
+
+    .plant-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .empty-state {
+      padding: 34px 22px;
+      border-radius: 28px;
+      text-align: center;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.52), rgba(248, 244, 227, 0.25));
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .empty-art {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 14px;
+    }
+
+    .pot {
+      position: absolute;
+      left: 50%;
+      bottom: 22px;
+      width: 92px;
+      height: 68px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, #d5a56f, #ba7d45);
+      border-radius: 16px 16px 24px 24px;
+      box-shadow: inset 0 -8px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .pot::before {
+      content: "";
+      position: absolute;
+      inset: -10px -8px auto;
+      height: 16px;
+      background: #d8b084;
+      border-radius: 14px;
+    }
+
+    .stem,
+    .leaf {
+      position: absolute;
+      left: 50%;
+      transform-origin: bottom center;
+    }
+
+    .stem {
+      bottom: 80px;
+      width: 8px;
+      height: 48px;
+      background: linear-gradient(180deg, #2d6a4f, #1b4332);
+      border-radius: 999px;
+      transform: translateX(-50%);
+    }
+
+    .leaf {
+      bottom: 104px;
+      width: 42px;
+      height: 24px;
+      background: linear-gradient(135deg, #95d5b2, #40916c);
+      border-radius: 24px 24px 24px 0;
+      box-shadow: inset -4px -4px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .leaf.left {
+      transform: translateX(-48px) rotate(-36deg);
+    }
+
+    .leaf.right {
+      transform: translateX(6px) scaleX(-1) rotate(-18deg);
+    }
+
+    .spark {
+      position: absolute;
+      font-size: 1.3rem;
+      animation: pulseFloat 2s ease-in-out infinite;
+    }
+
+    .spark.one {
+      top: 22px;
+      left: 28px;
+    }
+
+    .spark.two {
+      top: 32px;
+      right: 24px;
+      animation-delay: 0.4s;
+    }
+
+    .spark.three {
+      bottom: 12px;
+      right: 48px;
+      animation-delay: 0.8s;
+    }
+
+    .card-shell {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .delete-lane {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: stretch;
+      padding: 0;
+      background: linear-gradient(90deg, rgba(255, 140, 105, 0.08), rgba(255, 140, 105, 0.24));
+    }
+
+    .delete-btn {
+      width: 96px;
+      border: none;
+      background: linear-gradient(180deg, #ff9c7d, #f05d4c);
+      color: white;
+      font-weight: 800;
+      font-size: 0.96rem;
+      min-height: 100%;
+      cursor: pointer;
+    }
+
+    .plant-card {
+      position: relative;
+      border-radius: 24px;
+      padding: 18px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.56), rgba(248, 244, 227, 0.28));
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transform: translateX(0);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      touch-action: pan-y;
+      overflow: hidden;
+    }
+
+    .plant-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 35%);
+      pointer-events: none;
+    }
+
+    .card-shell.reveal-delete .plant-card {
+      transform: translateX(-92px);
+    }
+
+    .plant-card.overdue {
+      box-shadow: 0 0 0 1px rgba(255, 140, 105, 0.3), 0 16px 42px rgba(255, 140, 105, 0.24);
+      border-color: rgba(255, 140, 105, 0.4);
+    }
+
+    .plant-card.soon {
+      box-shadow: 0 0 0 1px rgba(246, 196, 83, 0.22), 0 16px 40px rgba(246, 196, 83, 0.16);
+      border-color: rgba(246, 196, 83, 0.34);
+    }
+
+    .plant-card.good {
+      box-shadow: 0 0 0 1px rgba(183, 228, 199, 0.36), 0 16px 40px rgba(82, 121, 111, 0.12);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .avatar {
+      width: 62px;
+      height: 62px;
+      flex: 0 0 62px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      font-size: 2rem;
+      background: rgba(255, 255, 255, 0.42);
+      border: 1px solid rgba(27, 67, 50, 0.08);
+      overflow: hidden;
+      box-shadow: inset 0 -6px 14px rgba(82, 121, 111, 0.08);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .plant-name {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.15;
+      word-break: break-word;
+    }
+
+    .status-badge {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(27, 67, 50, 0.08);
+    }
+
+    .status-badge.overdue {
+      color: #b93828;
+      background: rgba(255, 140, 105, 0.17);
+    }
+
+    .status-badge.soon {
+      color: #876106;
+      background: rgba(246, 196, 83, 0.22);
+    }
+
+    .status-badge.good {
+      color: #1f6b43;
+      background: rgba(183, 228, 199, 0.4);
+    }
+
+    .meta-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .meta-chip {
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.46);
+      border: 1px solid rgba(27, 67, 50, 0.08);
+      min-height: 64px;
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 0.74rem;
+      color: rgba(27, 67, 50, 0.65);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .meta-value {
+      display: block;
+      margin-top: 4px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      line-height: 1.2;
+    }
+
+    .countdown {
+      margin-top: 12px;
+      font-weight: 800;
+      font-size: 0.96rem;
+      color: rgba(27, 67, 50, 0.82);
+    }
+
+    .water-btn {
+      position: relative;
+      margin-top: 14px;
+      width: 100%;
+      min-height: 54px;
+      border: none;
+      border-radius: 18px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #1b4332, #2d6a4f);
+      color: #fefcf5;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 14px 24px rgba(27, 67, 50, 0.22);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      overflow: hidden;
+    }
+
+    .water-btn:active,
+    .water-btn:focus-visible {
+      transform: scale(0.98);
+      box-shadow: 0 8px 18px rgba(27, 67, 50, 0.18);
+      outline: none;
+    }
+
+    .water-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 25%, rgba(255, 255, 255, 0.2), transparent 75%);
+      transform: translateX(-120%);
+      transition: transform 0.6s ease;
+    }
+
+    .water-btn:hover::after,
+    .water-btn:focus-visible::after {
+      transform: translateX(120%);
+    }
+
+    .celebration {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .celebration.active .drop,
+    .celebration.active .check {
+      animation-play-state: running;
+    }
+
+    .drop,
+    .check {
+      position: absolute;
+      opacity: 0;
+      animation-play-state: paused;
+    }
+
+    .drop {
+      top: 18px;
+      width: 12px;
+      height: 18px;
+      border-radius: 50% 50% 60% 60%;
+      background: linear-gradient(180deg, #7dd3fc, #38bdf8);
+      transform: rotate(18deg);
+      animation: drip 1.15s ease forwards;
+    }
+
+    .drop.d1 { left: 18%; }
+    .drop.d2 { left: 35%; animation-delay: 0.06s; }
+    .drop.d3 { left: 58%; animation-delay: 0.12s; }
+    .drop.d4 { left: 74%; animation-delay: 0.18s; }
+
+    .check {
+      right: 18px;
+      top: 18px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(183, 228, 199, 0.85);
+      color: #1b4332;
+      font-size: 1.25rem;
+      animation: bloom 0.6s ease forwards;
+    }
+
+    .form-card {
+      padding: 20px;
+      border-radius: 28px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.56), rgba(248, 244, 227, 0.28));
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .form-copy {
+      margin: 0 0 18px;
+      color: rgba(27, 67, 50, 0.74);
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .field input[type="text"],
+    .field input[type="number"] {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 16px;
+      border: 1px solid rgba(27, 67, 50, 0.12);
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.76);
+      color: var(--forest);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    .field input:focus {
+      outline: 2px solid rgba(82, 121, 111, 0.24);
+      border-color: rgba(82, 121, 111, 0.45);
+    }
+
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .emoji-option {
+      min-height: 56px;
+      border-radius: 18px;
+      border: 1px solid rgba(27, 67, 50, 0.1);
+      background: rgba(255, 255, 255, 0.68);
+      font-size: 1.55rem;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .emoji-option.selected {
+      transform: translateY(-2px);
+      border-color: rgba(27, 67, 50, 0.34);
+      box-shadow: 0 10px 20px rgba(82, 121, 111, 0.16);
+      background: linear-gradient(180deg, rgba(183, 228, 199, 0.75), rgba(255, 255, 255, 0.9));
+    }
+
+    .upload-box {
+      border: 1px dashed rgba(27, 67, 50, 0.2);
+      background: rgba(255, 255, 255, 0.54);
+      padding: 14px;
+      border-radius: 18px;
+    }
+
+    .upload-box input[type="file"] {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .preview {
+      margin-top: 10px;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(27, 67, 50, 0.72);
+      font-weight: 700;
+    }
+
+    .preview-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.76);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      font-size: 1.8rem;
+      border: 1px solid rgba(27, 67, 50, 0.08);
+    }
+
+    .preview-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .save-btn {
+      width: 100%;
+      min-height: 56px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #52796F, #1B4332);
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      box-shadow: 0 16px 28px rgba(27, 67, 50, 0.2);
+      cursor: pointer;
+      transition: transform 0.18s ease;
+    }
+
+    .save-btn:active,
+    .save-btn:focus-visible {
+      transform: scale(0.985);
+      outline: none;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(94px + var(--safe-bottom));
+      transform: translateX(-50%) translateY(22px);
+      width: min(calc(100% - 32px), 380px);
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(27, 67, 50, 0.94);
+      color: #fffdf7;
+      box-shadow: 0 16px 32px rgba(27, 67, 50, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 40;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 30;
+      width: min(100%, 460px);
+      padding: 10px 16px calc(12px + var(--safe-bottom));
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, rgba(248, 244, 227, 0.02), rgba(248, 244, 227, 0.92) 28%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-shell {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 10px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-btn {
+      min-height: 58px;
+      border: none;
+      border-radius: 18px;
+      background: transparent;
+      color: rgba(27, 67, 50, 0.72);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.18s ease, color 0.18s ease;
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, rgba(27, 67, 50, 0.96), rgba(82, 121, 111, 0.96));
+      color: #fffdf7;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(27, 67, 50, 0.16);
+    }
+
+    .nav-emoji {
+      font-size: 1.15rem;
+    }
+
+    dialog {
+      width: min(calc(100% - 32px), 360px);
+      border: none;
+      border-radius: 24px;
+      padding: 0;
+      background: transparent;
+    }
+
+    dialog::backdrop {
+      background: rgba(27, 67, 50, 0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .dialog-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(248,244,227,0.95));
+      box-shadow: var(--shadow);
+      color: var(--forest);
+    }
+
+    .dialog-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+
+    .dialog-card p {
+      margin: 0 0 18px;
+      color: rgba(27, 67, 50, 0.74);
+    }
+
+    .dialog-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .dialog-actions button {
+      min-height: 50px;
+      border: none;
+      border-radius: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background: rgba(27, 67, 50, 0.08);
+      color: var(--forest);
+    }
+
+    .confirm-delete-btn {
+      background: linear-gradient(180deg, #ff9c7d, #f05d4c);
+      color: white;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.06); }
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.4; }
+      50% { transform: translateY(4px) scaleX(0.88); opacity: 0.8; }
+    }
+
+    @keyframes drip {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5) rotate(18deg);
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(70px) scale(1.15) rotate(18deg);
+      }
+    }
+
+    @keyframes bloom {
+      0% {
+        opacity: 0;
+        transform: scale(0.6);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.08);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1);
+      }
+    }
+
+    @media (min-width: 431px) {
+      .app-shell {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <div class="top-bounce" aria-hidden="true"></div>
+
+    <section class="hero">
+      <div class="eyebrow">🌿 Mobile-first care ritual</div>
+      <h1>Plantologie</h1>
+      <p class="subtitle">Your plant care companion</p>
+      <div class="hero-meta">
+        <div class="today-date" id="todayDate"></div>
+        <div class="summary-badge" id="summaryBadge">0 plants need water today</div>
+      </div>
+    </section>
+
+    <section class="view active" id="plantsView">
+      <div class="section-head">
+        <div>
+          <h2>My plants</h2>
+          <p class="hint">Long press or swipe left to delete a plant.</p>
+        </div>
+      </div>
+      <div class="plant-list" id="plantList"></div>
+    </section>
+
+    <section class="view" id="addView">
+      <div class="section-head">
+        <div>
+          <h2>Add a plant</h2>
+          <p class="hint">Create a gentle watering rhythm for each plant.</p>
+        </div>
+      </div>
+
+      <form class="form-card" id="plantForm">
+        <p class="form-copy">Pick an emoji, or upload a photo if you want a more personal plant portrait.</p>
+
+        <div class="field">
+          <label for="plantName">Plant name</label>
+          <input id="plantName" name="plantName" type="text" maxlength="40" placeholder="Monstera, cactus, basil..." required>
+        </div>
+
+        <div class="field">
+          <label for="frequency">Water every X days</label>
+          <input id="frequency" name="frequency" type="number" min="1" max="365" inputmode="numeric" placeholder="7" required>
+        </div>
+
+        <div class="field">
+          <label>Choose an emoji avatar</label>
+          <div class="emoji-grid" id="emojiGrid" role="radiogroup" aria-label="Plant emoji options"></div>
+        </div>
+
+        <div class="field">
+          <label for="photoInput">Or upload a plant photo</label>
+          <div class="upload-box">
+            <span>This photo stays only in your browser storage.</span>
+            <input id="photoInput" name="photoInput" type="file" accept="image/*">
+            <div class="preview" id="photoPreview">
+              <div class="preview-badge" id="previewBadge">🪴</div>
+              <span id="previewText">Current avatar preview</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="save-btn" type="submit">Save plant</button>
+      </form>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Bottom navigation">
+    <div class="nav-shell">
+      <button class="nav-btn active" data-view="plantsView" type="button">
+        <span class="nav-emoji">🌿</span>
+        <span>My Plants</span>
+      </button>
+      <button class="nav-btn" data-view="addView" type="button">
+        <span class="nav-emoji">➕</span>
+        <span>Add Plant</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="confirmDialog">
+    <div class="dialog-card">
+      <h3>Delete this plant?</h3>
+      <p>This will remove it from your tracker. You can always add it again later.</p>
+      <div class="dialog-actions">
+        <button class="cancel-btn" id="cancelDelete" type="button">Cancel</button>
+        <button class="confirm-delete-btn" id="confirmDelete" type="button">Delete</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var STORAGE_KEY = "plantologie-plants";
+      var EMOJIS = ["🌵", "🌿", "🌸", "🌺", "🌻", "🪴", "🎋", "🍀", "🌱", "🌾", "🎍", "🪷", "🌹", "🌼"];
+      var plants = [];
+      var selectedEmoji = "🪴";
+      var pendingDeleteId = null;
+      var photoDataUrl = "";
+
+      var todayDateEl = document.getElementById("todayDate");
+      var summaryBadgeEl = document.getElementById("summaryBadge");
+      var plantListEl = document.getElementById("plantList");
+      var emojiGridEl = document.getElementById("emojiGrid");
+      var plantFormEl = document.getElementById("plantForm");
+      var photoInputEl = document.getElementById("photoInput");
+      var previewBadgeEl = document.getElementById("previewBadge");
+      var previewTextEl = document.getElementById("previewText");
+      var toastEl = document.getElementById("toast");
+      var confirmDialogEl = document.getElementById("confirmDialog");
+      var cancelDeleteEl = document.getElementById("cancelDelete");
+      var confirmDeleteEl = document.getElementById("confirmDelete");
+
+      function startOfToday() {
+        var now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      }
+
+      function formatDate(date) {
+        return new Intl.DateTimeFormat("en-US", {
+          weekday: "long",
+          month: "long",
+          day: "numeric"
+        }).format(date);
+      }
+
+      function formatShortDate(dateString) {
+        var date = new Date(dateString + "T00:00:00");
+        return new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        }).format(date);
+      }
+
+      function toDateInputString(date) {
+        return [
+          date.getFullYear(),
+          String(date.getMonth() + 1).padStart(2, "0"),
+          String(date.getDate()).padStart(2, "0")
+        ].join("-");
+      }
+
+      function addDays(dateString, days) {
+        var date = new Date(dateString + "T00:00:00");
+        date.setDate(date.getDate() + days);
+        return date;
+      }
+
+      function diffInDays(fromDate, toDate) {
+        var msPerDay = 1000 * 60 * 60 * 24;
+        var utc1 = Date.UTC(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+        var utc2 = Date.UTC(toDate.getFullYear(), toDate.getMonth(), toDate.getDate());
+        return Math.round((utc2 - utc1) / msPerDay);
+      }
+
+      function getStatus(plant) {
+        var today = startOfToday();
+        var nextWaterDate = addDays(plant.lastWatered, Number(plant.frequency));
+        var daysUntil = diffInDays(today, nextWaterDate);
+        var status = "good";
+        var label = "Good";
+        var emoji = "🟢";
+
+        if (daysUntil < 0) {
+          status = "overdue";
+          label = "Overdue";
+          emoji = "🔴";
+        } else if (daysUntil <= 2) {
+          status = "soon";
+          label = "Soon";
+          emoji = "🟡";
+        }
+
+        return {
+          nextWaterDate: nextWaterDate,
+          daysUntil: daysUntil,
+          status: status,
+          label: label,
+          emoji: emoji
+        };
+      }
+
+      function countdownLabel(daysUntil) {
+        if (daysUntil === 0) {
+          return "Watering is due today!";
+        }
+        if (daysUntil === 1) {
+          return "Needs water in 1 day";
+        }
+        if (daysUntil === 2) {
+          return "Needs water in 2 days";
+        }
+        if (daysUntil > 2) {
+          return "Needs water in " + daysUntil + " days";
+        }
+        if (daysUntil === -1) {
+          return "1 day late";
+        }
+        return Math.abs(daysUntil) + " days late";
+      }
+
+      function compactCountdown(daysUntil) {
+        if (daysUntil === 0) {
+          return "today!";
+        }
+        if (daysUntil > 0) {
+          return "in " + daysUntil + " day" + (daysUntil > 1 ? "s" : "");
+        }
+        var late = Math.abs(daysUntil);
+        return late + " day" + (late > 1 ? "s" : "") + " late";
+      }
+
+      function savePlants() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(plants));
+      }
+
+      function loadPlants() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          var parsed = raw ? JSON.parse(raw) : [];
+          plants = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          plants = [];
+        }
+      }
+
+      function sortPlants(list) {
+        return list.slice().sort(function (a, b) {
+          var statusA = getStatus(a);
+          var statusB = getStatus(b);
+          if (statusA.daysUntil !== statusB.daysUntil) {
+            return statusA.daysUntil - statusB.daysUntil;
+          }
+          return a.name.localeCompare(b.name);
+        });
+      }
+
+      function updateSummary() {
+        var needsToday = plants.filter(function (plant) {
+          return getStatus(plant).daysUntil <= 0;
+        }).length;
+
+        if (needsToday === 0) {
+          summaryBadgeEl.textContent = "All plants are happy today";
+          return;
+        }
+
+        if (needsToday === 1) {
+          summaryBadgeEl.textContent = "1 plant needs water today";
+          return;
+        }
+
+        summaryBadgeEl.textContent = needsToday + " plants need water today";
+      }
+
+      function createAvatar(plant) {
+        if (plant.photo) {
+          return '<img src="' + plant.photo + '" alt="' + escapeHtml(plant.name) + '">';
+        }
+        return escapeHtml(plant.emoji || "🪴");
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function renderEmptyState() {
+        plantListEl.innerHTML =
+          '<div class="empty-state">' +
+            '<div class="empty-art" aria-hidden="true">' +
+              '<div class="spark one">✨</div>' +
+              '<div class="spark two">💧</div>' +
+              '<div class="spark three">🌿</div>' +
+              '<div class="leaf left"></div>' +
+              '<div class="leaf right"></div>' +
+              '<div class="stem"></div>' +
+              '<div class="pot"></div>' +
+            '</div>' +
+            '<h3>No plants yet</h3>' +
+            '<p>Add your first plant and Plantologie will help you keep its watering rhythm beautifully simple.</p>' +
+          '</div>';
+      }
+
+      function renderPlants() {
+        updateSummary();
+
+        if (!plants.length) {
+          renderEmptyState();
+          return;
+        }
+
+        var sortedPlants = sortPlants(plants);
+        plantListEl.innerHTML = sortedPlants.map(function (plant) {
+          var statusInfo = getStatus(plant);
+          return (
+            '<article class="card-shell" data-id="' + plant.id + '">' +
+              '<div class="delete-lane">' +
+                '<button class="delete-btn" type="button" data-action="delete">Delete</button>' +
+              '</div>' +
+              '<div class="plant-card ' + statusInfo.status + '" data-card="' + plant.id + '">' +
+                '<div class="celebration" data-celebration="' + plant.id + '">' +
+                  '<span class="drop d1"></span>' +
+                  '<span class="drop d2"></span>' +
+                  '<span class="drop d3"></span>' +
+                  '<span class="drop d4"></span>' +
+                  '<span class="check">✓</span>' +
+                '</div>' +
+                '<div class="card-top">' +
+                  '<div class="avatar">' + createAvatar(plant) + '</div>' +
+                  '<div class="card-main">' +
+                    '<div class="card-title-row">' +
+                      '<h3 class="plant-name">' + escapeHtml(plant.name) + '</h3>' +
+                      '<span class="status-badge ' + statusInfo.status + '">' + statusInfo.emoji + ' ' + statusInfo.label + '</span>' +
+                    '</div>' +
+                    '<div class="meta-grid">' +
+                      '<div class="meta-chip">' +
+                        '<span class="meta-label">Frequency</span>' +
+                        '<span class="meta-value">Every ' + escapeHtml(plant.frequency) + ' day' + (Number(plant.frequency) > 1 ? "s" : "") + '</span>' +
+                      '</div>' +
+                      '<div class="meta-chip">' +
+                        '<span class="meta-label">Last watered</span>' +
+                        '<span class="meta-value">' + formatShortDate(plant.lastWatered) + '</span>' +
+                      '</div>' +
+                    '</div>' +
+                    '<div class="countdown">' + compactCountdown(statusInfo.daysUntil) + '</div>' +
+                  '</div>' +
+                '</div>' +
+                '<button class="water-btn" type="button" data-action="water">I watered it! 💧</button>' +
+              '</div>' +
+            '</article>'
+          );
+        }).join("");
+
+        bindCardInteractions();
+      }
+
+      function showToast(message) {
+        toastEl.textContent = message;
+        toastEl.classList.add("show");
+        window.clearTimeout(showToast.timeoutId);
+        showToast.timeoutId = window.setTimeout(function () {
+          toastEl.classList.remove("show");
+        }, 2200);
+      }
+
+      function buildEmojiGrid() {
+        emojiGridEl.innerHTML = EMOJIS.map(function (emoji) {
+          var selected = emoji === selectedEmoji ? " selected" : "";
+          return '<button class="emoji-option' + selected + '" type="button" data-emoji="' + emoji + '" aria-pressed="' + (emoji === selectedEmoji) + '">' + emoji + '</button>';
+        }).join("");
+      }
+
+      function updatePreview() {
+        if (photoDataUrl) {
+          previewBadgeEl.innerHTML = '<img src="' + photoDataUrl + '" alt="Uploaded plant preview">';
+          previewTextEl.textContent = "Uploaded photo selected";
+          return;
+        }
+
+        previewBadgeEl.textContent = selectedEmoji;
+        previewTextEl.textContent = "Emoji avatar selected";
+      }
+
+      function resetForm() {
+        plantFormEl.reset();
+        selectedEmoji = "🪴";
+        photoDataUrl = "";
+        buildEmojiGrid();
+        updatePreview();
+      }
+
+      function switchView(targetId) {
+        document.querySelectorAll(".view").forEach(function (view) {
+          view.classList.toggle("active", view.id === targetId);
+        });
+
+        document.querySelectorAll(".nav-btn").forEach(function (button) {
+          button.classList.toggle("active", button.getAttribute("data-view") === targetId);
+        });
+      }
+
+      function handlePhotoUpload(file) {
+        if (!file) {
+          photoDataUrl = "";
+          updatePreview();
+          return;
+        }
+
+        if (!file.type || file.type.indexOf("image/") !== 0) {
+          showToast("Please choose an image file.");
+          photoInputEl.value = "";
+          return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function (event) {
+          photoDataUrl = event.target.result;
+          updatePreview();
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function createPlant(data) {
+        var today = toDateInputString(startOfToday());
+        return {
+          id: "plant-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+          name: data.name,
+          frequency: Number(data.frequency),
+          emoji: data.emoji,
+          photo: data.photo,
+          lastWatered: today
+        };
+      }
+
+      function waterPlant(plantId) {
+        var today = toDateInputString(startOfToday());
+        plants = plants.map(function (plant) {
+          if (plant.id === plantId) {
+            return Object.assign({}, plant, { lastWatered: today });
+          }
+          return plant;
+        });
+        savePlants();
+        renderPlants();
+        triggerCelebration(plantId);
+        showToast("Watering saved for today.");
+      }
+
+      function triggerCelebration(plantId) {
+        var celebration = document.querySelector('[data-celebration="' + plantId + '"]');
+        if (!celebration) {
+          return;
+        }
+
+        celebration.classList.remove("active");
+        void celebration.offsetWidth;
+        celebration.classList.add("active");
+
+        window.setTimeout(function () {
+          celebration.classList.remove("active");
+        }, 1300);
+      }
+
+      function requestDelete(plantId) {
+        pendingDeleteId = plantId;
+        if (typeof confirmDialogEl.showModal === "function") {
+          confirmDialogEl.showModal();
+        } else if (window.confirm("Delete this plant?")) {
+          deletePlant(pendingDeleteId);
+        }
+      }
+
+      function deletePlant(plantId) {
+        plants = plants.filter(function (plant) {
+          return plant.id !== plantId;
+        });
+        savePlants();
+        renderPlants();
+        pendingDeleteId = null;
+        showToast("Plant deleted.");
+      }
+
+      function closeAllDeleteLanes(exceptShell) {
+        document.querySelectorAll(".card-shell.reveal-delete").forEach(function (shell) {
+          if (shell !== exceptShell) {
+            shell.classList.remove("reveal-delete");
+          }
+        });
+      }
+
+      function bindCardInteractions() {
+        document.querySelectorAll(".card-shell").forEach(function (shell) {
+          var card = shell.querySelector(".plant-card");
+          var pressTimer = null;
+          var startX = 0;
+          var currentX = 0;
+          var longPressTriggered = false;
+
+          function openDelete() {
+            closeAllDeleteLanes(shell);
+            shell.classList.add("reveal-delete");
+          }
+
+          function closeDelete() {
+            shell.classList.remove("reveal-delete");
+          }
+
+          card.addEventListener("touchstart", function (event) {
+            startX = event.touches[0].clientX;
+            currentX = startX;
+            longPressTriggered = false;
+            pressTimer = window.setTimeout(function () {
+              longPressTriggered = true;
+              openDelete();
+            }, 550);
+          }, { passive: true });
+
+          card.addEventListener("touchmove", function (event) {
+            currentX = event.touches[0].clientX;
+            var deltaX = currentX - startX;
+            if (Math.abs(deltaX) > 10 && pressTimer) {
+              clearTimeout(pressTimer);
+              pressTimer = null;
+            }
+          }, { passive: true });
+
+          card.addEventListener("touchend", function () {
+            if (pressTimer) {
+              clearTimeout(pressTimer);
+              pressTimer = null;
+            }
+
+            var deltaX = currentX - startX;
+            if (!longPressTriggered) {
+              if (deltaX < -40) {
+                openDelete();
+              } else if (deltaX > 30) {
+                closeDelete();
+              }
+            }
+          });
+
+          card.addEventListener("mousedown", function () {
+            longPressTriggered = false;
+            pressTimer = window.setTimeout(function () {
+              longPressTriggered = true;
+              openDelete();
+            }, 650);
+          });
+
+          ["mouseup", "mouseleave"].forEach(function (eventName) {
+            card.addEventListener(eventName, function () {
+              if (pressTimer) {
+                clearTimeout(pressTimer);
+                pressTimer = null;
+              }
+            });
+          });
+
+          shell.querySelector('[data-action="water"]').addEventListener("click", function () {
+            waterPlant(shell.getAttribute("data-id"));
+          });
+
+          shell.querySelector('[data-action="delete"]').addEventListener("click", function () {
+            requestDelete(shell.getAttribute("data-id"));
+          });
+        });
+      }
+
+      function bindEvents() {
+        document.querySelectorAll(".nav-btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            switchView(button.getAttribute("data-view"));
+          });
+        });
+
+        emojiGridEl.addEventListener("click", function (event) {
+          var button = event.target.closest(".emoji-option");
+          if (!button) {
+            return;
+          }
+          selectedEmoji = button.getAttribute("data-emoji");
+          photoDataUrl = "";
+          photoInputEl.value = "";
+          buildEmojiGrid();
+          updatePreview();
+        });
+
+        photoInputEl.addEventListener("change", function (event) {
+          handlePhotoUpload(event.target.files[0]);
+        });
+
+        plantFormEl.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var name = document.getElementById("plantName").value.trim();
+          var frequency = Number(document.getElementById("frequency").value);
+
+          if (!name) {
+            showToast("Please enter a plant name.");
+            return;
+          }
+
+          if (!Number.isFinite(frequency) || frequency < 1) {
+            showToast("Watering frequency must be at least 1 day.");
+            return;
+          }
+
+          plants.push(createPlant({
+            name: name,
+            frequency: frequency,
+            emoji: selectedEmoji,
+            photo: photoDataUrl
+          }));
+          savePlants();
+          renderPlants();
+          resetForm();
+          switchView("plantsView");
+          showToast("Plant added successfully.");
+        });
+
+        cancelDeleteEl.addEventListener("click", function () {
+          pendingDeleteId = null;
+          confirmDialogEl.close();
+        });
+
+        confirmDeleteEl.addEventListener("click", function () {
+          if (pendingDeleteId) {
+            deletePlant(pendingDeleteId);
+          }
+          confirmDialogEl.close();
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".card-shell")) {
+            closeAllDeleteLanes(null);
+          }
+        });
+      }
+
+      function init() {
+        todayDateEl.textContent = formatDate(new Date());
+        loadPlants();
+        buildEmojiGrid();
+        updatePreview();
+        renderPlants();
+        bindEvents();
+      }
+
+      init();
+    }());
+  </script>
+</body>
+</html>
+<!--
+Instructions de mise en ligne sur GitHub Pages
+
+1. Créer un compte GitHub
+   - Ouvrez https://github.com
+   - Cliquez sur "Sign up"
+   - Suivez les étapes pour créer votre compte gratuitement
+   - Validez votre adresse e-mail si GitHub vous le demande
+
+2. Créer un nouveau dépôt nommé "plantologie"
+   - Une fois connecté, cliquez sur le bouton "+" en haut à droite
+   - Choisissez "New repository"
+   - Dans "Repository name", écrivez exactement : plantologie
+   - Laissez le dépôt en "Public"
+   - Cliquez sur "Create repository"
+
+3. Ajouter le fichier index.html
+   - Dans votre nouveau dépôt, cliquez sur "Add file" puis "Upload files"
+   - Glissez-déposez ce fichier `index.html` dans la page
+   - Descendez en bas de la page
+   - Cliquez sur "Commit changes"
+
+4. Activer GitHub Pages
+   - Ouvrez l’onglet "Settings" du dépôt
+   - Dans le menu latéral, cliquez sur "Pages"
+   - Dans la section "Build and deployment", choisissez :
+     Source : "Deploy from a branch"
+   - Sélectionnez la branche `main`
+   - Sélectionnez le dossier `/ (root)`
+   - Cliquez sur "Save"
+
+5. Ouvrir l’application en ligne
+   - Attendez environ 1 à 3 minutes
+   - GitHub affichera l’adresse publique de votre site dans la page "Pages"
+   - L’URL ressemblera à :
+     https://VOTRE-NOM-UTILISATEUR.github.io/plantologie/
+   - Ouvrez ce lien sur votre téléphone ou votre ordinateur pour utiliser l’application
+-->
