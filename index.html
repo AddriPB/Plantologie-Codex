@@ -1467,11 +1467,10 @@
     <div class="dialog-panel">
       <h3 class="dialog-title">Choisir un espace</h3>
       <p class="space-help">
-        Entrez le nom de votre espace pour charger ses plantes. Vous pouvez utiliser <strong>AZE</strong> pour explorer l’application.
+        Entrez le nom de votre espace pour charger ses plantes.
       </p>
-      <input class="space-input" id="spaceInput" type="text" maxlength="24" placeholder="Exemple : AZE" autocomplete="off">
+      <input class="space-input" id="spaceInput" type="text" maxlength="24" placeholder="Nom de l’espace" autocomplete="off">
       <div class="dialog-actions">
-        <button class="cancel-btn" id="spaceUseAzeBtn" type="button">Utiliser AZE</button>
         <button class="confirm-delete-btn" id="spaceConfirmBtn" type="button">Continuer</button>
       </div>
     </div>
@@ -1598,7 +1597,6 @@
       var confirmDialogBtnEl = document.getElementById("confirmDialogBtn");
       var spaceDialogEl = document.getElementById("spaceDialog");
       var spaceInputEl = document.getElementById("spaceInput");
-      var spaceUseAzeBtnEl = document.getElementById("spaceUseAzeBtn");
       var spaceConfirmBtnEl = document.getElementById("spaceConfirmBtn");
       var detailsSheetEl = document.getElementById("detailsSheet");
       var sheetPhotoEl = document.getElementById("sheetPhoto");
@@ -2466,10 +2464,6 @@
           button.addEventListener("click", function () {
             switchView(button.getAttribute("data-view"));
           });
-        });
-
-        spaceUseAzeBtnEl.addEventListener("click", function () {
-          applySpace("AZE");
         });
 
         spaceConfirmBtnEl.addEventListener("click", function () {
