@@ -171,6 +171,40 @@
       font-weight: 800;
     }
 
+    .space-chip {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(27, 67, 50, 0.08);
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+
+    .space-chip strong {
+      font-size: 0.92rem;
+    }
+
+    .space-chip span {
+      color: rgba(27, 67, 50, 0.74);
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+
+    .space-switch-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 8px 10px;
+      background: rgba(27, 67, 50, 0.08);
+      color: var(--forest);
+      font-weight: 800;
+      min-height: 40px;
+    }
+
     .live-status {
       display: inline-flex;
       align-items: center;
@@ -1263,6 +1297,30 @@
       opacity: 0.8;
     }
 
+    .space-input {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 16px;
+      border: 1px solid rgba(27, 67, 50, 0.12);
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--forest);
+      margin: 6px 0 14px;
+      text-transform: uppercase;
+    }
+
+    .space-input:focus {
+      outline: 2px solid rgba(82, 121, 111, 0.24);
+      border-color: rgba(82, 121, 111, 0.45);
+    }
+
+    .space-help {
+      margin: 0 0 14px;
+      color: rgba(27, 67, 50, 0.74);
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
     .sr-only {
       position: absolute;
       width: 1px;
@@ -1334,6 +1392,12 @@
       <div class="hero-copy">
         <h1>Plantologie</h1>
         <p class="subtitle">Votre compagnon de soin pour les plantes</p>
+      </div>
+
+      <div class="space-chip">
+        <strong id="spaceLabel">Espace : non défini</strong>
+        <span id="spaceHint">Saisissez un nom d’espace pour accéder à vos plantes.</span>
+        <button class="space-switch-btn" id="changeSpaceBtn" type="button">Changer</button>
       </div>
 
       <div class="today-date" id="todayDate"></div>
@@ -1452,6 +1516,21 @@
     </div>
   </div>
 
+  <div class="dialog" id="spaceDialog">
+    <div class="dialog-backdrop"></div>
+    <div class="dialog-panel">
+      <h3 class="dialog-title">Choisir un espace</h3>
+      <p class="space-help">
+        Entrez le nom de votre espace pour charger ses plantes. Avec vos règles Firebase actuelles, l’espace <strong>AZE</strong> fonctionne immédiatement.
+      </p>
+      <input class="space-input" id="spaceInput" type="text" maxlength="24" placeholder="Exemple : AZE" autocomplete="off">
+      <div class="dialog-actions">
+        <button class="cancel-btn" id="spaceUseAzeBtn" type="button">Utiliser AZE</button>
+        <button class="confirm-delete-btn" id="spaceConfirmBtn" type="button">Continuer</button>
+      </div>
+    </div>
+  </div>
+
   <div class="sheet" id="detailsSheet">
     <div class="sheet-backdrop" data-close-sheet></div>
     <div class="sheet-panel">
@@ -1484,8 +1563,9 @@
     (function () {
       "use strict";
 
-      var CACHE_KEY = "plantologie-cache";
+      var CACHE_PREFIX = "plantologie-cache-";
       var VIEW_KEY = "plantologie-view";
+      var SPACE_KEY = "plantologie-space";
 
       /*
         CONFIGURATION FIREBASE
@@ -1506,6 +1586,7 @@
       var isFirebaseReady = false;
       var isLiveConnected = false;
       var currentViewMode = localStorage.getItem(VIEW_KEY) || "list";
+      var currentSpaceId = (localStorage.getItem(SPACE_KEY) || "").trim().toUpperCase();
       var pendingDeleteId = null;
       var pendingAction = null;
       var selectedPlantIds = [];
@@ -1554,6 +1635,9 @@
       var liveStatusEl = document.getElementById("liveStatus");
       var liveStatusTextEl = document.getElementById("liveStatusText");
       var offlineBannerEl = document.getElementById("offlineBanner");
+      var spaceLabelEl = document.getElementById("spaceLabel");
+      var spaceHintEl = document.getElementById("spaceHint");
+      var changeSpaceBtnEl = document.getElementById("changeSpaceBtn");
       var plantFormEl = document.getElementById("plantForm");
       var photoInputEl = document.getElementById("photoInput");
       var photoFrameEl = document.getElementById("photoFrame");
@@ -1572,6 +1656,10 @@
       var dialogCopyEl = document.getElementById("dialogCopy");
       var cancelDialogBtnEl = document.getElementById("cancelDialogBtn");
       var confirmDialogBtnEl = document.getElementById("confirmDialogBtn");
+      var spaceDialogEl = document.getElementById("spaceDialog");
+      var spaceInputEl = document.getElementById("spaceInput");
+      var spaceUseAzeBtnEl = document.getElementById("spaceUseAzeBtn");
+      var spaceConfirmBtnEl = document.getElementById("spaceConfirmBtn");
       var detailsSheetEl = document.getElementById("detailsSheet");
       var sheetPhotoEl = document.getElementById("sheetPhoto");
       var sheetTitleEl = document.getElementById("sheetTitle");
@@ -1584,6 +1672,18 @@
 
       var db = null;
       var plantsRef = null;
+
+      function getCacheKey(spaceId) {
+        return CACHE_PREFIX + (spaceId || "default");
+      }
+
+      function sanitizeSpaceId(value) {
+        return String(value || "")
+          .trim()
+          .toUpperCase()
+          .replace(/[^A-Z0-9_-]/g, "")
+          .slice(0, 24);
+      }
 
       function startOfToday() {
         var now = new Date();
@@ -1706,7 +1806,7 @@
 
       function saveCache(nextPlants) {
         try {
-          localStorage.setItem(CACHE_KEY, JSON.stringify(nextPlants));
+          localStorage.setItem(getCacheKey(currentSpaceId), JSON.stringify(nextPlants));
         } catch (error) {
           return;
         }
@@ -1714,11 +1814,26 @@
 
       function loadCache() {
         try {
-          var raw = localStorage.getItem(CACHE_KEY);
+          var raw = localStorage.getItem(getCacheKey(currentSpaceId));
           var parsed = raw ? JSON.parse(raw) : [];
           return Array.isArray(parsed) ? parsed : [];
         } catch (error) {
           return [];
+        }
+      }
+
+      function updateSpaceUi() {
+        if (!currentSpaceId) {
+          spaceLabelEl.textContent = "Espace : non défini";
+          spaceHintEl.textContent = "Saisissez un nom d’espace pour accéder à vos plantes.";
+          return;
+        }
+
+        spaceLabelEl.textContent = "Espace : " + currentSpaceId;
+        if (currentSpaceId === "AZE") {
+          spaceHintEl.textContent = "Connexion directe autorisée par vos règles Firebase actuelles.";
+        } else {
+          spaceHintEl.textContent = "Avec vos règles actuelles, seul AZE est accessible en ligne. Les autres espaces resteront en cache local tant que les règles ne changent pas.";
         }
       }
 
@@ -1913,12 +2028,70 @@
         if (!value || typeof value !== "object") {
           return [];
         }
+        if (Array.isArray(value)) {
+          return value.filter(Boolean);
+        }
+        if (value.plants && typeof value.plants === "object") {
+          return Object.keys(value.plants).map(function (key) {
+            return value.plants[key];
+          }).filter(Boolean);
+        }
         return Object.keys(value).map(function (key) {
           return value[key];
-        }).filter(Boolean);
+        }).filter(function (item) {
+          return item && typeof item === "object" && item.id;
+        });
+      }
+
+      function clearFirebaseListener() {
+        if (plantsRef && typeof plantsRef.off === "function") {
+          plantsRef.off();
+        }
+        plantsRef = null;
+      }
+
+      function openSpaceDialog(prefillValue) {
+        spaceInputEl.value = sanitizeSpaceId(prefillValue || currentSpaceId || "");
+        spaceDialogEl.classList.add("show");
+        window.setTimeout(function () {
+          spaceInputEl.focus();
+          spaceInputEl.select();
+        }, 30);
+      }
+
+      function closeSpaceDialog() {
+        spaceDialogEl.classList.remove("show");
+      }
+
+      function applySpace(spaceId) {
+        var normalized = sanitizeSpaceId(spaceId);
+        if (!normalized) {
+          showToast("Veuillez saisir un nom d’espace.");
+          openSpaceDialog("");
+          return;
+        }
+
+        currentSpaceId = normalized;
+        localStorage.setItem(SPACE_KEY, currentSpaceId);
+        updateSpaceUi();
+        closeSpaceDialog();
+        selectedPlantIds = [];
+        isSelectionMode = false;
+        closeDetailsSheet();
+        setPlants(loadCache());
+        initFirebaseSync();
       }
 
       function initFirebaseSync() {
+        clearFirebaseListener();
+
+        if (!currentSpaceId) {
+          setConnectionState(false, "Aucun espace sélectionné. Saisissez un nom d’espace pour charger vos plantes.");
+          setPlants([]);
+          openSpaceDialog("");
+          return;
+        }
+
         if (!getFirebaseConfigured()) {
           setConnectionState(false, "Firebase n’est pas encore configuré dans le fichier. Complétez les variables en haut du script pour activer la synchronisation temps réel.");
           setPlants(loadCache());
@@ -1936,7 +2109,7 @@
             firebase.initializeApp(firebaseConfig);
           }
           db = firebase.database();
-          plantsRef = db.ref("plants");
+          plantsRef = db.ref(currentSpaceId);
           isFirebaseReady = true;
 
           plantsRef.on("value", function (snapshot) {
@@ -1944,7 +2117,7 @@
             setPlants(normalizeSnapshotObject(data));
             setConnectionState(true);
           }, function () {
-            setConnectionState(false, "Connexion temps réel interrompue. Les dernières données synchronisées restent disponibles.");
+            setConnectionState(false, "Connexion temps réel interrompue pour l’espace " + currentSpaceId + ". Les dernières données synchronisées restent disponibles.");
             setPlants(loadCache());
           });
 
@@ -1954,13 +2127,13 @@
               if (connected) {
                 setConnectionState(true);
               } else {
-                setConnectionState(false, "Appareil hors ligne ou Firebase momentanément indisponible. Affichage du dernier état connu.");
+                setConnectionState(false, "Appareil hors ligne ou Firebase momentanément indisponible pour l’espace " + currentSpaceId + ". Affichage du dernier état connu.");
               }
             });
           }
         } catch (error) {
           isFirebaseReady = false;
-          setConnectionState(false, "Impossible d’initialiser Firebase pour le moment. L’application continue avec le cache local.");
+          setConnectionState(false, "Impossible d’initialiser Firebase pour l’espace " + currentSpaceId + ". L’application continue avec le cache local.");
           setPlants(loadCache());
         }
       }
@@ -1988,7 +2161,7 @@
             }
           })
           .catch(function () {
-            setConnectionState(false, "L’enregistrement Firebase a échoué. Les dernières données connues restent affichées.");
+            setConnectionState(false, "L’enregistrement Firebase a échoué pour l’espace " + currentSpaceId + ". Les dernières données connues restent affichées.");
             showToast("Impossible d’enregistrer sur Firebase.");
           });
       }
@@ -2381,6 +2554,32 @@
           });
         });
 
+        changeSpaceBtnEl.addEventListener("click", function () {
+          openSpaceDialog(currentSpaceId);
+        });
+
+        spaceUseAzeBtnEl.addEventListener("click", function () {
+          applySpace("AZE");
+        });
+
+        spaceConfirmBtnEl.addEventListener("click", function () {
+          applySpace(spaceInputEl.value);
+        });
+
+        spaceInputEl.addEventListener("input", function () {
+          var cleaned = sanitizeSpaceId(spaceInputEl.value);
+          if (spaceInputEl.value !== cleaned) {
+            spaceInputEl.value = cleaned;
+          }
+        });
+
+        spaceInputEl.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            applySpace(spaceInputEl.value);
+          }
+        });
+
         listToggleEl.addEventListener("click", function () {
           setViewMode("list");
         });
@@ -2475,11 +2674,17 @@
 
       function init() {
         todayDateEl.textContent = formatDate(new Date());
+        updateSpaceUi();
         updatePreview();
         bindEvents();
         setViewMode(currentViewMode);
         setPlants(loadCache());
-        initFirebaseSync();
+        if (currentSpaceId) {
+          initFirebaseSync();
+        } else {
+          setConnectionState(false, "Aucun espace sélectionné. Saisissez un nom d’espace pour charger vos plantes.");
+          openSpaceDialog("");
+        }
       }
 
       init();
