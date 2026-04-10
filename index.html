@@ -2021,7 +2021,7 @@
             firebase.initializeApp(firebaseConfig);
           }
           db = firebase.database();
-          plantsRef = db.ref(currentSpaceId);
+          plantsRef = db.ref(currentSpaceId + "/plants");
           isFirebaseReady = true;
 
           plantsRef.on("value", function (snapshot) {
